@@ -1,0 +1,6117 @@
+//AIGame 官方示例
+
+//(1)判断是否获取无障碍权限
+let has = $act.hasPermit();
+
+//(2)如果没有取无障碍，则获取权限
+if (has) {
+    log("已经获得无障碍权限");
+} else {
+    log("请求获取无障碍权限");
+    $act.getPermit();
+}
+
+
+//示例结束//AIGame 官方示例
+
+//安卓7以上使用无障碍执行手势
+//安卓7以下自动切换成root执行手势
+
+$act.click(400,348);
+
+
+
+//示例结束//AIGame 官方示例
+
+//安卓7以上使用无障碍执行手势
+//安卓7以下自动切换成root执行手势
+
+$act.press(400,348);
+
+
+
+//示例结束//AIGame 官方示例
+
+//安卓7以上使用无障碍执行手势
+//安卓7以下自动切换成root执行手势
+
+//下拉通知
+$act.move(400,0,400,800,1000);
+
+
+
+//示例结束//AIGame 官方示例
+
+//安卓7以上使用无障碍执行手势
+//安卓7以下自动切换成root执行手势
+
+//注意:不推荐在android7以下使用多指手势,因为root手势本身就不支持多指
+//虽然可以正常运行，但是和无障碍手势的效果有差别
+
+//(1)先长按
+let g1 = [504,583,504,583,0,1000];
+//(2)再滑动
+let g2 = [504,583,504,883,1000,1000];
+$act.gesture(g1,g2);
+
+
+
+//示例结束//AIGame 官方示例
+
+//安卓7以上使用无障碍执行手势
+//安卓7以下自动切换成root执行手势
+
+//注意:不推荐在android7以下使用多指手势,因为root手势本身就不支持多指
+//虽然可以正常运行，但是和无障碍手势的效果有差别
+
+//模拟三指下滑
+let g1 = [500,900,500,1500,0,1000];
+let g2 = [500,900,500,1500,0,1000];
+let g3 = [500,900,500,1500,0,1000];
+$act.gesture(g1,g2,g3);
+
+
+
+//示例结束//AIGame 官方示例
+sleep(2000);
+$draw.i("执行操作:$act.home()");
+$act.home();
+
+sleep(2000);
+$draw.i("执行操作:$act.menu()");
+$act.menu();//此函数和recen()t函数效果一致
+
+sleep(2000);
+$draw.i("执行操作:$act.back()");
+$act.back();
+
+sleep(2000);
+$draw.i("执行操作:$act.power()");
+$act.power();
+
+sleep(2000);
+$draw.i("执行操作:$act.back()");
+$act.back();
+
+sleep(2000);
+$draw.i("执行操作:$act.settings()");
+//打开设置界面
+$act.settings();
+
+sleep(2000);
+$draw.i("返回主页");
+$act.home();
+
+sleep(2000);
+$draw.i("执行操作:$act.notifications()");
+//打开通知
+$act.notifications();
+
+sleep(2000);
+$draw.i("返回主页");
+$act.home();
+
+
+sleep(2000);
+$draw.closeLog();
+
+
+//示例结束//AIGame 官方示例
+
+sleep(2000);
+//执行分屏操作
+$act.splitScreen();
+
+sleep(2000);
+//执行截屏操作
+$act.screenshot();
+
+
+//示例结束//AIGame 官方示例
+
+//注意：当无障碍不可用时，自动切换使用root手势执行息屏和亮屏
+$act.lock();//息屏
+sleep(2000);
+$act.unlock();//亮屏
+
+
+
+//使用root版本的息屏与亮屏
+/*
+sleep(2000);
+$root.lock();//息屏
+sleep(2000);
+$root.unlock();//亮屏
+*/
+
+//示例结束//AIGame 官方示例
+
+let curActivity = $act.activity(); //获得当前界面类名
+log(curActivity);
+
+//设置界面变化监听(你可以打开其他软件界面,看看日志信息)
+$act.activity((name)=> {
+    log("当前界面:",name);
+});
+
+//20秒后关闭界面变化监听
+sleep(20000);
+
+//关闭界面变化监听
+$act.activity(null);
+
+//示例结束//AIGame 官方示例
+
+//当界面中有文本框获得焦点时，可以直接设置内容
+$act.input("需要设置的内容");
+
+//示例结束//官方示例
+//$alert比$dialog更适合显示较大的视图
+
+$alert.create()
+.title("标题")
+.msg("我是信息内容")
+.but1("按钮1")
+.but2("按钮2")
+.but3("按钮3")
+.show();
+
+
+//示例结束//官方示例
+
+
+$alert.create()
+.title("禁止自动关闭")
+.msg("不允许通过点击外部自动关闭对话框")
+.but3("取消")
+.cancelable(false) //不允许通过点击外部自动关闭对话框
+.show();
+
+
+//示例结束//官方示例
+
+
+$alert.create()
+.title("单选")
+//.msg("我是信息") 注意：使用了items就不能再使用msg设置消息体了
+.items(["选项1","选项2","选项3"],(di,which)=> {
+    info("选中了:"+which);
+})
+.but3("取消")
+.cancelable(false) //不允许通过点击外部自动关闭对话框
+.show();
+
+
+//示例结束//官方示例
+
+
+$alert.create()
+.title("单选")
+//.msg("我是信息") 注意：使用了oneItems就不能再使用msg设置消息体了
+.oneItems(
+    ["选项1","选项2","选项3"],
+    0 ,//默认单选中第一个
+    (di,which)=> {
+        info("选中了:"+which);
+    })
+.but3("取消")
+.cancelable(false) //不允许通过点击外部自动关闭对话框
+.show();
+
+
+//示例结束//官方示例
+
+
+$alert.create()
+.title("单选")
+//.msg("我是信息") 注意：使用了moreItems就不能再使用msg设置消息体了
+.moreItems(
+    ["选项1","选项2","选项3"],
+    (di,which)=> {
+        info("选中了:"+which);
+    })
+.but3("取消")
+.cancelable(false) //不允许通过点击外部自动关闭对话框
+.show();
+
+
+//示例结束//官方示例
+
+
+$alert.create()
+.title("单选")
+//.msg("我是信息") 注意：使用了moreItems就不能再使用msg设置消息体了
+.moreItems(
+    ["选项1","选项2","选项3"],
+    [true , true , false],//默认多选中第一个和第二个
+    (di,which)=> {
+        info("选中了:"+which);
+    })
+.but3("取消")
+.cancelable(false) //不允许通过点击外部自动关闭对话框
+.show();
+
+
+//示例结束//官方示例
+
+
+$alert.create()
+.title("设置图标")
+.icon("logo_ag")
+.msg("看看我的图标")
+.but3("取消")
+.cancelable(false) //不允许通过点击外部自动关闭对话框
+.show();
+
+
+//示例结束//官方示例
+
+let mAlert = $alert.create();
+
+let ui = $ui.layout(`
+<ui w="max">
+    <button id="mButton1" style="text" text="点我试试" w="max"/>
+    <button id="mButton2" text="关闭对话框" style="text" w="max" />
+</ui>
+`);
+
+ui.id("mButton1").click(()=>{
+    info("我被点击了");
+});
+
+ui.id("mButton2").click(()=>{
+    mAlert.close();//关闭对话框
+});
+
+let mView = ui.getView();
+
+mAlert
+//不允许通过点击外部自动关闭对话框
+//但是要记住一定要自己设置一个可以关闭对话框的方式
+.cancelable(false) 
+.view(mView) // 设置自定义布局
+.show();
+
+
+//示例结束// AIGame官方示例
+
+
+//获取悬浮窗权限
+$floaty.getPermit();
+
+//获取图标
+let icon = $app.getIcon("QQ");
+
+//显示图片
+$img.show(icon);//(需要用悬浮窗权限)
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+$app.runApp("QQ");//应用名
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+$app.runPkg("com.tencent.mobileqq");//传入包名
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+$app.run("QQ");//可传入包名或者应用名
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//获得所有应用信息
+let apps = $app.ls();
+
+//打印所应用信息
+for(let i = 0 ; i < apps.size() ; i++){
+    log(apps.get(i));
+}
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//获得最进运行的应用
+if ($app.hasUsagePermit()) {
+    let pkgList = $app.lsRecent();
+    if (pkgList !== null) {
+        for (let i = 0; i < pkgList.size(); i++) {
+            console.log(pkgList[i]);
+        }
+    }
+} else {
+    $app.getUsagePermit();
+}
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//打开QQ
+$app.startActivity("QQ","com.tencent.mobileqq.activity.SplashActivity");
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+let pkg = "org.aigame.pro";
+
+if ($app.pkgExists(pkg)) {
+    alert(pkg,"存在");
+} else {
+    alert(pkg,"不存在");
+}
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//获得包名
+let pkg = $app.pkgName("QQ");
+
+
+alert("应用包名",pkg);
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//获得应用名
+let appName = $app.appName("com.android.settings");
+
+alert("应用名称",appName);//设置
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//此函数部分手机不支持
+//卸载QQ
+$app.uninstallApp("QQ");
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//此函数部分手机不支持
+//卸载QQ
+$app.uninstallPkg("com.tencent.mobileqq");
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//卸载QQ
+$app.uninstall("QQ");//应用名或包名
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//打开网址
+let myUrl = "www.baidu.com";
+
+$app.openUrl(myUrl);
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//分享本地图片
+let path = "/sdcard/Pictures/t01.png";
+$app.shareImg(path);
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//分享文本
+let text = "你好";
+$app.shareText(text);
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+$app.sendSms("13593749477","你好我是xxx");
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+$app.call("13593749477");
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+$app.sendMail("3502037911@qq.com","标题","内容");
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//前往权限设置界面
+$app.appSetting("AIGame Pro");
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//打开文件
+$app.viewFile("/sdcard/Pictures/test.text");
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//编辑文件
+$app.editFile("/sdcard/Pictures/test.text");
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+$app.hasUsagePermit();
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+$app.getUsagePermit();
+
+
+
+
+// 示例结束//AIGame 官方示例
+
+let myName = "悬浮球1号";
+
+if (!$arc.has(myName)) {
+    //当前名称如果不存在，那么就开始创建自己的悬浮球
+
+    //创建按钮容器(用来装小按钮)
+    let menuBody = $arc.body(myName); //指定菜单名称
+
+    //创建小按钮
+    let menu1 = $arc.item("logo_ag").bg("#55FFFFFF"); //指定按钮图标
+    let menu2 = $arc.item("ic_close").style("outline").iconTint("#FF0000"); //可以这样指定样式[方法1]
+    let menu3 = $arc.item("ic_code_run");
+    let menu4 = $arc.item("ic_cloud");
+    let menu5 = $arc.item("ic_color");
+
+    //可以这样指定样式[方法2]
+    menu3.radius(15).iconSize(80).iconPadding(0).iconTint("#57965C").bg("#55FFFFFF");
+    let play = false;
+    menu3.click(()=> {
+        if (play) {
+            menu3.icon("ic_code_run").iconTint("#57965C");
+            play = false;
+        } else {
+            menu3.icon("ic_stop").iconTint("#FF0000");
+            play = true;
+        }
+    });
+
+    //为menu2绑定事件
+    menu2.click(()=> {
+        //$arc.close(myName); //关闭悬浮窗(指定名称)
+        $arc.closeAll(); //或者直接关闭全部的悬浮菜单
+    });
+
+    //向容器中添加小按钮
+    menuBody
+    .add(menu1) //添加小按钮[主按钮]
+    .add(menu2) //添加小按钮[关闭]
+    .add(menu3) //添加小按钮[运行/停止]
+    .add(menu4.iconTint("#F2C55C")) //可以这样指定样式[方法3]
+    .add(menu5) //添加小按钮[调色盘]
+    .show(); //显示
+}else{
+    log(myName+"已存在");
+}
+
+
+
+
+//示例结束//AIGame 官方示例
+
+let myName = "悬浮球2号";
+if (!$arc.has(myName)) {
+
+    //创建按钮容器(用来装小按钮)
+    let menuBody = $arc.body(myName); //指定菜单名称
+
+    //创建小按钮
+    let menu1 = $arc.item("ic_app").iconTint("#3574F0"); //指定按钮图标
+    let menu2 = $arc.item("ic_clear");
+
+    //为按钮2绑定事件
+    menu2.click(()=> {
+        $arc.close(myName); //关闭悬浮窗(和悬浮菜单名称一致)
+        //$arc.closeAll();//或者直接关闭全部的悬浮菜单
+    });
+
+    //向容器中添加小按钮
+    menuBody
+    .add(menu1.bg("#55FFFFFF")) //添加小按钮
+    .add(menu2.bg("#55000000").iconTint("#55FF0000").ripper("#550000FF")) //添加小按钮
+    .show(); //显示
+
+
+
+}
+
+//示例结束// AIGame官方示例
+
+
+//获得所有监听器列表
+let monis = $bus.ls();
+
+log(monis);//[我的监听器1号]
+
+
+
+
+// 示例结束//
+
+
+//想要接收全局广播,必须要先注册一个广播事件监听器
+//监听器的名称为`broadcast`,回调参数是`Intent`类型
+
+$bus.event("broadcast",(intent)=>{
+    log("接受到了广播:");
+    let extras = intent.getExtras();
+    let value = extras.get("mKey");
+    log(`广播数据:${value}`);
+});
+
+
+
+////
+
+
+let intent = $app.newIntent({
+    action: "org.aigame.pro.bus.action",
+    // 随便写点数据,一会而$bus会接收到广播,在里面获取这个数据
+    extras: [{
+        name: "mKey",
+        value: "哈哈哈"
+    } ],
+    // 指定接受端的应用(固定写法)
+    component: {
+        cls: "org.aigame.api.bus.receiver.AgBusReceiver",
+        pkg: "org.aigame.pro"
+    }
+});
+
+//然后发送广播
+$app.sendBroadcast(intent,"org.aigame.pro.bus.permission");
+
+
+
+//
+//以下是auto.js的代码,无法在aigame中执行
+
+app.sendBroadcast({
+    packageName: "org.aigame.pro",
+    className: "org.aigame.api.bus.receiver.AgBusReceiver",
+    extras: {
+        mKey: "我是auto.js发送的广播数据",
+    } ,
+});
+
+
+//
+$dialog.create()
+.title("Tasker执行脚本")
+.msg(`
+1.打开Tasker
+2.创建Tasker意图任务
+3.操作(action)填写:'runJs:/sdcard/main.js'
+4.包名(package)填写:'org.aigame.pro'
+5.类名(class)填写:'org.aigame.api.bus.receiver.AgBusReceiver'
+6.目标(type)设置成:'(广播)BroadcastReceiver'
+7.最后执行任务,发送意图,AIGame便会执行/sdcard/main.js脚本
+`)
+.but1("复制类名",(dialog)=>{
+    dialog.dismiss();
+    setClip("org.aigame.api.bus.receiver.AgBusReceiver");
+})
+.but2("复制包名",(dialog)=>{
+    dialog.dismiss();
+    setClip("org.aigame.pro");
+})
+.but3("关闭",(dialog)=>{
+    dialog.dismiss();
+})
+.show();
+// AIGame官方示例
+
+
+$bus.post("我的监听器1号","我是数据");
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+$bus.event("我的监听器1号",(data)=>{
+log("获得数据:",data);
+toast(data);
+});
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//指定关闭监听器
+$bus.close("我的监听器1号");
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+$bus.clear();//关闭所有监听器
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+$bus.stopAll();//关闭所有监听器效果和clear()一样
+
+
+
+
+// 示例结束//AIGame官方示例
+
+let ui= $ui.layout(`
+<ui>
+    <statusbar/>
+    <appbar back="true" id="mAppbar" title="显示画布图片" w="max"/>
+    <img id="mImg" w="max" h="max" gravity="center|top" padding="10"/>
+</ui>
+`);
+ui.show();
+ui.id("mAppbar").back(()=>{
+    ui.finish();
+});
+
+//创建画布对象
+let canvas = $canvas.create(500,500);
+//创建画笔
+let paint = $canvas.paint();
+paint.setColor($color.RED);//红色
+//绘制红色方框
+canvas.drawRect(30,30,400,400,paint);
+//布局显示画布中的图片
+ui.id("mImg").setImg(canvas.getBitmap());
+
+
+
+//示例结束//AIGame官方示例
+
+//创建画布对象
+let canvas = $canvas.create(500,500);
+
+//创建画笔
+let paint = $canvas.paint();
+paint.setColor($color.RED); //红色
+
+//绘制红色方框
+canvas.drawRect(30,30,400,400,paint);
+
+//转换成Image对象后显示(AIGame的内置对象:$img的操作对象)
+canvas.show();
+
+//或者使用 canvas.toImg().show();    来显示图片
+//或者使用 $img.show(canvas.toImg());来显示图片
+
+
+
+
+
+//示例结束//AIGame官方示例
+
+//创建画布对象(加载图片对象)
+let canvas = $canvas.create("ag-app-example/$canvas - 画布/02.拟定合同/合同.jpg");
+
+//创建黑色彩笔
+let paint = $canvas.paint("#000000");
+paint.setTextSize(25);
+
+//绘制颜色
+canvas.drawText("张三丰",170,145,paint);
+canvas.drawText("420321200006524388",480,145,paint);
+canvas.drawText("13564962035",900,145,paint);
+canvas.drawText("翻斗花园2号街A501",170,195,paint);
+
+//显示图片
+canvas.show();
+//保存图片
+canvas.save("/sdcard/新合同.jpg");
+
+
+//示例结束//AIGame官方示例
+
+let ui= $ui.layout(`
+<ui>
+    <statusbar/>
+    <appbar back="true" id="mAppbar" title="我的表格" w="max"/>
+    <img id="mImg" w="max" h="max" gravity="center|top" padding="10"/>
+</ui>
+`);
+ui.show();
+ui.id("mAppbar").back(()=>{
+    ui.finish();
+});
+
+let aw = 750; //合同宽度
+let ah = 750; //合同高度
+let th01_h = 45; //第1行表格线条高度("姓名之类的")
+let th02_h = 45; //第2行表格线条高度("调查地址")
+let th03_h = 300; //第3行表格线条高度("立案事由")
+let th04_h = 60; //第4行表格线条高度("联系微信啥的")
+
+//创建画布对象
+let canvas = $canvas.create(aw,ah);
+
+//绘制表格
+let tabs = [
+    1,1,aw-2,1,//上边框
+    1,1,1,ah-2,//左边框
+    1,ah-2,aw-2,ah-2,//下边框
+    aw-2,1,aw-2,ah-2,//右边框
+    //第1行表格线条高度(横线)
+    1,1+th01_h,aw-2,1+th01_h,
+    //第1行表格线条高度(竖线)
+    70,1,70,1+th01_h,
+    150,1,150,1+th01_h,
+    270,1,270,1+th01_h,
+    500,1,500,1+th01_h,
+    570,1,570,1+th01_h,
+    //第2行表格线条高度(横线)
+    1,1+th01_h+th02_h,aw-2,1+th01_h+th02_h,
+    100,1+th01_h,100,1+th01_h+th02_h,
+    //第3行表格线条高度(横线)
+    1,1+th01_h+th02_h+th03_h,aw-2,1+th01_h+th02_h+th03_h,
+    100,1+th01_h+th02_h,100,1+th01_h+th02_h+th03_h,
+    //第4行表格线条高度(横线)
+    1,1+th01_h+th02_h+th03_h+th04_h,aw-2,1+th01_h+th02_h+th03_h+th04_h,
+];
+canvas.drawLines(tabs ,$canvas.paint("#000000"));
+//绘制文字
+let txtPaint = $canvas.paint("#000000");
+txtPaint.setTextSize(20);
+canvas.drawText("姓名",10,30,txtPaint);
+canvas.drawText("身份证号",10+150,30,txtPaint);
+canvas.drawText("号码",10+500,30,txtPaint);
+canvas.drawText("调查地址",10,30+th01_h,txtPaint);
+canvas.drawText("立案事由",10,30+th01_h+(th02_h+th03_h)/2,txtPaint);
+let lxPaint = $canvas.paint($color.RED);
+lxPaint.setTextSize(26);
+canvas.drawText("1小时内联系:132584946(微信同号)偿还欠款可办理撤案",15,45+th01_h+th02_h+th03_h,lxPaint);
+
+
+//布局显示画布
+ui.id("mImg").setImg(canvas.getBitmap());
+
+
+
+
+
+//示例结束//AIGame官方示例
+
+//创建画布对象
+let size = 20;
+let canvas = $canvas.create(100,size+10);
+
+//生成6位验证码
+let vcode = random(10)+""+random(10)+random(10)+random(10)+random(10)+random(10);
+
+//创建画笔
+let txtPaint = $canvas.paint("#000000");
+txtPaint.setTextSize(size);
+
+//绘制文字
+canvas.drawText(vcode,0,size,txtPaint);
+
+//布局显示画布
+canvas.show();
+
+
+
+
+//示例结束
+//如果没有无障碍权限，则会获取录屏权限
+if(!$act.hasPermit()){
+    //阻塞方法:直到获取录屏权限为止，才会继续向下执行代码
+    $screen.getPermit();
+}
+
+//获取悬浮窗权限
+$floaty.getPermit();
+//把图片显示在屏幕上
+$img.show("ag-app-example/$color - 颜色工具/01.图片找色/p01.png")
+//截屏并且找颜色
+sleep(1000);//显示图片需要时间,所以延迟一秒
+let screenImg = $screen.getScreen();//如果有无障碍就会使用无障碍来截屏
+//第4个参数因为我不知到具体的范围所以就空着(默认全屏查找)
+let result = $color.find(screenImg,"#d87d83");
+if(result!=null){
+    $draw.dot(result);//绘制结果位置
+    $draw.log(result);//屏幕显示位置
+    sleep(3000);
+    $draw.closeAll();//关闭绘制
+}
+
+//如果没有无障碍权限，则会获取录屏权限
+if(!$act.hasPermit()){
+    //阻塞方法:直到获取录屏权限为止，才会继续向下执行代码
+    $screen.getPermit();
+}
+
+//获取悬浮窗权限
+$floaty.getPermit();
+//把图片显示在屏幕上
+$img.show("ag-app-example/$color - 颜色工具/01.图片找色/p01.png")
+//截屏并且找颜色
+sleep(1000);//显示图片需要时间,所以延迟一秒
+let screenImg = $screen.getScreen();//如果有无障碍就会使用无障碍来截屏
+//第4个参数因为我不知到具体的范围所以就空着(默认全屏查找)
+let result = $color.find(screenImg,"#d87d83",5,[]);
+if(result!=null){
+    $draw.dot(result);//绘制结果位置
+    $draw.log(result);//屏幕显示位置
+    sleep(3000);
+    $draw.closeAll();//关闭绘制
+}
+
+//如果没有无障碍权限，则会获取录屏权限
+if(!$act.hasPermit()){
+    //阻塞方法:直到获取录屏权限为止，才会继续向下执行代码
+    $screen.getPermit();
+}
+
+//获取悬浮窗权限
+$floaty.getPermit();
+//把图片显示在屏幕上
+$img.show("ag-app-example/$color - 颜色工具/01.图片找色/p02.png")
+//截屏并且找颜色
+sleep(1000);//显示图片需要时间,所以延迟一秒
+let screenImg = $screen.getScreen();//如果有无障碍就会使用无障碍来截屏
+//只用两个参数其他的默认
+let result = $color.findAll(screenImg,"#d28384");
+if(result!=null){
+    for(let index of result){
+        $draw.dot(index);//绘制位置的点
+        $draw.log(index);//屏幕显示位置
+        sleep(300);
+    }
+    //3秒后关闭悬浮绘制
+    sleep(5000);
+    $draw.closeAll();
+}
+
+//如果没有无障碍权限，则会获取录屏权限
+if(!$act.hasPermit()){
+    //阻塞方法:直到获取录屏权限为止，才会继续向下执行代码
+    $screen.getPermit();
+}
+
+//获取悬浮窗权限
+$floaty.getPermit();
+//把图片显示在屏幕上
+$img.show("ag-app-example/$color - 颜色工具/01.图片找色/p02.png")
+//截屏并且找颜色
+sleep(1000);//显示图片需要时间,所以延迟一秒
+let screenImg = $screen.getScreen();//如果有无障碍就会使用无障碍来截屏
+//第4个参数因为我不知到具体的范围所以就空着(默认全屏查找)
+let result = $color.findAll(screenImg,"#d28384",5,[]);
+if(result!=null){
+    for(let index of result){
+        $draw.dot(index);//绘制位置的点
+        $draw.log(index);//屏幕显示位置
+        sleep(300);
+    }
+    //3秒后关闭悬浮绘制
+    sleep(5000);
+    $draw.closeAll();
+}
+let result = $color.similar("#1E1F22","#2B2D30");
+
+alert("相似度",result);
+
+//转为#00000000
+let color1 = $color.toString(-166780);
+
+//转为#000000
+let color2 = $color.str(-166780);
+
+alert("8位颜色值",color1);
+
+alert("6位颜色值",color2);
+
+let colorValue1 = $color.parse("#784cde");
+let colorValue2 = $color.parse(105,78,230);
+let colorValue3 = $color.rgb(105,78,230);
+let colorValue4 = $color.argb(255,105,78,230);
+
+
+let info = `
+colorValue1=${colorValue1}
+colorValue2=${colorValue2}
+colorValue3=${colorValue3}
+colorValue4=${colorValue4}
+`;
+
+alert("颜色值",info);
+
+let a = $color.a("#357C94");
+let r = $color.r("#357C94");
+let g = $color.g("#357C94");
+let b = $color.b("#357C94");
+
+let info = `
+a=${a}
+r=${r}
+g=${g}
+b=${b}
+`;
+alert("解析通道",info);let color = "#1E1F22"; 
+
+let colorValue =-14803166;
+
+let same = $color.equals(color,colorValue);
+
+if (same) {
+    alert("比较颜色","颜色相同");
+} else {
+    alert("比较颜色","颜色不同");
+}
+
+//AIGame 官方示例
+
+//(1)准备16位密钥
+let key = $crypt.aesKey();
+
+//(2)准备要加密的明文
+let myData = "今天天气真好!";
+
+//(3)开始加密
+let jiamiResult = $crypt.aesJiami(myData, key);
+
+alert("AES加密结果", jiamiResult);
+
+//(4)开始解密
+let jiemiResult = $crypt.aesJiemi(jiamiResult, key);
+
+alert("AES解密结果", jiemiResult);
+
+
+
+
+//示例结束//AIGame 官方示例
+
+//准备一个长度为16的密钥
+let key = "ACSDFGHJUYDLOPSD";
+
+//准备需要加密的明文
+let text = "我是被加密的明文";
+
+//开始加密
+let result = $crypt.jiami(text,key,"AES",{
+    input:"string",
+    output:"base64"
+});
+
+alert("AES加密结果", result);
+
+//开始解密
+let jiemiResult = $crypt.jiemi(result,key,"AES",{
+    input:"base64",
+    output:"string"
+});
+
+
+alert("AES解密结果", jiemiResult);
+
+
+
+
+
+//示例结束//AIGame 官方示例
+
+
+let key = "ACSDFGHJ";
+let text = "我是被加密的明文";
+
+
+let result = $crypt.jiami(text,key,"DES",{
+    input:"string",
+    output:"base64"
+});
+
+alert("DES加密",result)
+
+let result2 = $crypt.jiemi(result,key,"DES",{
+    input:"base64",
+    output:"string"
+});
+
+
+alert("DES解密",result2)
+
+
+
+
+
+
+
+
+
+//示例结束//AIGame 官方示例
+
+
+
+
+//生成密钥对
+let keyPair = $crypt.generateKeyPair("RSA", 1024);
+
+alert("RSA密钥信息", keyPair);
+
+log("使用私钥加密");
+let jiamiStr = $crypt.jiami("我是被加密的内容", keyPair.privateKey, "RSA/ECB/PKCS1Padding", {
+    input: "string",
+    output: "base64"
+});
+log(jiamiStr);
+
+alert("RSA加密结果", jiamiStr);
+
+log("使用公钥解密");
+let jiemiStr = $crypt.jiemi(jiamiStr, keyPair.publicKey, "RSA/ECB/PKCS1Padding", {
+    input: "base64",
+    output: "string"
+});
+log(jiemiStr);
+
+
+alert("RSA解密结果", jiemiStr);
+
+
+
+//示例结束//AIGame 官方示例
+
+//获得所有哈希算法的名称
+let digests = $crypt.digests();
+
+//每个算法都用一遍
+for (let i = 0; i < digests.size(); i ++) {
+
+    //(1)准备需要加密的明文
+    let myData = "今天天气真好呀";
+    //(2)准备用到的算法名称
+    let algorithm = digests.get(i);
+    let result = $crypt.digest(myData, algorithm, {
+        input: "string",
+        output: "hex"
+    });
+    
+    alert("算法:"+algorithm,"加密后的数据:\n"+result);
+    
+}
+
+
+
+
+//示例结束//AIGame 官方示例
+
+//生成16位的md5加密盐值
+let salt = $crypt.md5Key(16);
+
+//(1)准备加密的明文
+let myData = "今天天气真好!";
+//(2)开始加密
+let result1 = $crypt.md516(salt,myData);//md5加密成16位结果
+let result2 = $crypt.md532(salt,myData);//md5加密成32位结果
+
+alert("MD5加密:16位",result1);
+alert("MD5加密:32位",result2);
+
+
+
+//示例结束//AIGame 官方示例
+
+//(1)准备需要加密的明文
+let myData = "今天天气真好呀";
+
+//(2)开始加密
+let result = $crypt.digest(myData, "MD5", {
+    input: "string",
+    output: "hex"
+});
+
+alert("MD5加密",result);
+
+
+//示例结束//AIGame 官方示例
+
+
+//生成密钥对
+let keyPair = $crypt.generateKeyPair("DSA", 1024);
+
+
+alert("DSA密钥信息", keyPair);
+
+log("签名:"); 
+//数字签名只能用私钥进行签名
+let signData = $crypt.sign("我是被签名的内容", keyPair.privateKey, "DSA", {
+    input: "string",
+    output: "byte"
+});
+
+//由于输出的是数组,所以使用join方法转换成字符串
+alert("DSA签名结果", signData.join());
+
+log("验证:"); 
+//数字签名只能用公钥进行验证
+let verified = $crypt.verify("我是被签名的内容",signData, keyPair.publicKey, "DSA", {
+    //(1)这个配置是签名时的配置(需要和上面sign参数保持一致)
+    input: "string",
+    output: "byte"
+},{
+    //(2)这个配置是验证的数据配置
+    //输入签名的类型
+    input: "byte",
+});
+
+
+alert("DSA验证结果", verified);
+
+
+
+
+
+//示例结束//官方示例
+
+let dateStr = $date.dt();
+
+alert("日期时间字符串",dateStr);//2025-10-25 18:32:53
+
+
+//示例结束//官方示例
+
+let dateStr = $date.d();
+
+alert("日期时间字符串",dateStr);//2025-10-25
+
+
+//示例结束//官方示例
+
+let date = $date.parse("2025/12/08 12/35/24","yyyy/MM/dd HH/mm/ss");
+//获得日期对象
+alert("日期对象",date);//Dec 8, 2025 12:35:24 PM
+
+
+//示例结束//官方示例
+
+//无需日期模板，自动匹配
+let date = $date.parse("2025/12/08 12/35/24");
+//获得日期对象
+alert("日期对象",date);//Dec 8, 2025 12:35:24 PM
+
+
+//示例结束//官方示例
+
+//获取当前日期信息
+let info = $date.info();
+
+alert("日期信息",info);
+
+
+//示例结束//官方示例
+
+//格式化指定日期
+let info = $date.format(1747985594110,"yyyy年MM月dd日 HH时mm分ss秒");
+
+alert("日期信息",info);
+
+
+//示例结束//官方示例
+
+//新建日期对象
+let date = $date.date();
+
+alert("日期对象",date);
+
+
+//示例结束//官方示例
+
+//将时间戳转为时间描述
+let info = $date.dur(1234567890);
+
+alert("时间", info);//14天6时56分7秒
+
+
+//示例结束//AIGame 官方示例
+
+
+log("屏幕的宽度",$device.width);
+log("屏幕的高度",$device.height);
+log("Build ID",$device.buildId);
+log("Build Display",$device.buildDisplay);
+log("主板名称",$device.broad);
+log("品牌名称",$device.brand);
+log("设备名称",$device.device);
+log("型号名称",$device.model);
+log("产品名称",$device.product);
+log("引导加载程序名称",$device.bootloader);
+log("硬件名称",$device.hardware);
+log("指纹信息",$device.fingerprint);
+log("序列号",$device.serial);
+log("SDK版本号",$device.sdkInt);
+log("内部版本号",$device.incremental);
+log("Android版本号",$device.release);
+log("基础操作系统版本",$device.baseOS);
+log("安全补丁版本",$device.securityPatch);
+log("开发代号",$device.code);
+
+//获取其他信息
+
+log("IMEI号码",$device.getIMEI());
+log("Android ID",$device.getAndroidId());
+log("MAC 地址",$device.getMacAddress());
+log("屏幕亮度",$device.getBrightness());
+log("屏幕亮度模式",$device.getBrightnessMode());
+log("音乐音量",$device.getMusicVolume());
+log("通知音量",$device.getNotificationVolume());
+log("闹钟音量",$device.getAlarmVolume());
+log("音乐最大音量",$device.getMusicMaxVolume());
+log("通知最大音量",$device.getNotificationMaxVolume());
+log("闹钟最大音量",$device.getAlarmMaxVolume());
+log("电池电量百分比",$device.getBattery());
+log("是否正在充电",$device.isCharging());
+log("总内存",$device.getTotalMem());
+log("可用内存",$device.getAvailMem());
+log("屏幕是否亮起",$device.isScreenOn());
+log("屏幕是否熄灭",$device.isScreenOff());
+
+
+
+//示例结束//官方示例
+
+
+$dialog.create()
+.title("标题")
+.msg("我是信息内容")
+.but1("按钮1")
+.but2("按钮2")
+.but3("按钮3")
+.show();
+
+
+//示例结束//官方示例
+
+
+$dialog.create()
+.title("禁止自动关闭")
+.msg("不允许通过点击外部自动关闭对话框")
+.but3("取消")
+.cancelable(false) //不允许通过点击外部自动关闭对话框
+.show();
+
+
+//示例结束//官方示例
+
+
+$dialog.create()
+.title("单选")
+//.msg("我是信息") 注意：使用了items就不能再使用msg设置消息体了
+.items(["选项1","选项2","选项3"],(di,which)=> {
+    info("选中了:"+which);
+})
+.but3("取消")
+.cancelable(false) //不允许通过点击外部自动关闭对话框
+.show();
+
+
+//示例结束//官方示例
+
+
+$dialog.create()
+.title("单选")
+//.msg("我是信息") 注意：使用了oneItems就不能再使用msg设置消息体了
+.oneItems(
+    ["选项1","选项2","选项3"],
+    0 ,//默认单选中第一个
+    (di,which)=> {
+        info("选中了:"+which);
+    })
+.but3("取消")
+.cancelable(false) //不允许通过点击外部自动关闭对话框
+.show();
+
+
+//示例结束//官方示例
+
+
+$dialog.create()
+.title("单选")
+//.msg("我是信息") 注意：使用了moreItems就不能再使用msg设置消息体了
+.moreItems(
+    ["选项1","选项2","选项3"],
+    (di,which)=> {
+        info("选中了:"+which);
+    })
+.but3("取消")
+.cancelable(false) //不允许通过点击外部自动关闭对话框
+.show();
+
+
+//示例结束//官方示例
+
+
+$dialog.create()
+.title("单选")
+//.msg("我是信息") 注意：使用了moreItems就不能再使用msg设置消息体了
+.moreItems(
+    ["选项1","选项2","选项3"],
+    [true , true , false],//默认多选中第一个和第二个
+    (di,which)=> {
+        info("选中了:"+which);
+    })
+.but3("取消")
+.cancelable(false) //不允许通过点击外部自动关闭对话框
+.show();
+
+
+//示例结束//官方示例
+
+
+$dialog.create()
+.title("设置图标")
+.icon("logo_ag")
+.msg("看看我的图标")
+.but3("取消")
+.cancelable(false) //不允许通过点击外部自动关闭对话框
+.show();
+
+
+//示例结束//官方示例
+
+let dialog = $dialog.create();
+
+let ui = $ui.layout(`
+<ui w="max">
+    <button id="mButton1" style="text" text="点我试试" w="max"/>
+    <button id="mButton2" text="关闭对话框" style="text" w="max" />
+</ui>
+`);
+
+ui.id("mButton1").click(()=>{
+    info("我被点击了");
+});
+
+ui.id("mButton2").click(()=>{
+    dialog.close();//关闭对话框
+});
+
+let mView = ui.getView();
+
+dialog
+//不允许通过点击外部自动关闭对话框
+//但是要记住一定要自己设置一个可以关闭对话框的方式
+.cancelable(false) 
+.view(mView) // 设置自定义布局
+.show();
+
+
+//示例结束//AIGame 官方示例
+
+
+//关闭所有绘制图案
+$draw.closeAll();
+
+//绘制矩形
+$draw.rect(200,200,200,100);
+
+sleep(2000);
+
+//绘制一个向外拓展50像素的矩阵
+$draw.rect(200,200,200,100,50);
+
+
+
+
+//示例结束//AIGame 官方示例
+
+
+//关闭所有绘制图案
+$draw.closeAll();
+
+//绘制半径为100像素的圆形
+$draw.circle(350,400,100);
+
+sleep(2000);
+
+//向外拓展50像素
+$draw.circle(350,400,100,50);
+
+
+
+
+//示例结束//AIGame 官方示例
+
+
+//关闭所有绘制图案
+$draw.closeAll();
+
+//绘制准心
+$draw.cross(400,500);
+
+
+
+
+
+//示例结束//AIGame 官方示例
+
+
+//关闭所有绘制图案
+$draw.closeAll();
+
+//绘制一个点
+$draw.dot(400,500);
+
+
+
+
+
+//示例结束//AIGame 官方示例
+
+
+//关闭所有绘制图案
+$draw.closeAll();
+
+//绘制文字
+$draw.text("Hello aigame !",400,300);
+
+//绘制文字(大小为20像素)
+$draw.text("Hello aigame !",400,400,20);
+
+
+
+
+//示例结束//AIGame 官方示例
+
+
+//关闭所有绘制图案
+$draw.closeAll();
+
+//绘制一条线
+$draw.line(300,0,100,1000);
+
+//再绘制几条
+$draw.line(300,0,200,1000);
+$draw.line(300,0,400,1000);
+$draw.line(300,0,700,1000);
+
+//示例结束//AIGame 官方示例
+
+
+//关闭所有绘制图案
+$draw.closeAll();
+
+
+function generateHeartCoordinates(size, offsetX , offsetY) {
+    const coordinates = [];
+    for (let t = 0; t < 2 * Math.PI; t += 0.01) {
+        // 根据爱心参数方程计算 x 和 y
+        let x = 16 * Math.pow(Math.sin(t), 3);
+        let y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+
+        // 缩放坐标，size 控制爱心大小
+        x = x * size / 32;
+        y = -y * size / 32;
+
+        // 偏移坐标，让爱心居中
+        x += size / 2;
+        y += size / 2;
+
+        // 应用额外的偏移量来设置爱心位置
+        x += offsetX;
+        y += offsetY;
+
+        coordinates.push([Math.round(x), Math.round(y)]);
+    }
+    return coordinates;
+}
+
+// 调用函数生成爱心坐标数组
+const size = 250;
+const offsetX = 300; // 设置爱心在 x 轴上的偏移量
+const offsetY = 260; // 设置爱心在 y 轴上的偏移量
+const heartCoordinates = generateHeartCoordinates(size, offsetX, offsetY);
+
+
+
+
+$draw.path(heartCoordinates);
+
+
+
+
+//示例结束//AIGame 官方示例
+
+
+//关闭所有绘制图案
+$draw.closeAll();
+
+$draw.i("信息");
+
+sleep(2000);
+
+$draw.d("调试");
+
+sleep(2000);
+
+$draw.w("警告");
+
+sleep(2000);
+
+$draw.e("异常");
+
+sleep(2000);
+
+$draw.v("忽略");
+
+sleep(2000);
+
+
+
+//示例结束//AIGame 官方示例
+
+
+//关闭所有绘制的图案
+$draw.closeAll();
+
+
+
+//示例结束//AIGame 官方示例
+
+//国际通用手势
+$draw.path([
+    [100, 800],
+    [120, 750],
+    [150, 720],
+    [180, 750],
+    [200, 800],
+    [200, 800],
+    [220, 700],
+    [250, 680],
+    [280, 700],
+    [300, 800],
+    [300, 800],
+    [320, 250],
+    [350, 200],
+    [380, 250],
+    [400, 800],
+    [400, 800],
+    [420, 740],
+    [450, 730],
+    [480, 740],
+    [500, 800],
+    [500, 800],
+    [520, 770],
+    [550, 760],
+    [580, 770],
+    [600, 800]
+]);
+
+//示例结束//开头先清空所有
+$draw.closeAll();
+sleep(1000);
+
+//设置速度
+let speed = 3;
+
+//动态的绘制一个点
+for (let i = 0; i < $screen.getWidth(); i += speed) {
+    $draw.dot(i, 500);
+    //显示10毫秒后再清空(时间太短了就看不到绘制的内容了)
+    sleep(10);
+    //[重要]这个函数不会销毁悬浮窗，只会清空绘制
+    $draw.clear();
+}
+
+//结尾再清空所有
+sleep(1000);
+$draw.closeAll();//这个函数会销毁悬浮窗
+//AIGame 官方示例
+
+let path1 = "ag-app-example/$engine - 脚本引擎/01.不同线程中的路径/脚本1.js";
+let path2 = "ag-app-example/$engine - 脚本引擎/01.不同线程中的路径/脚本2.js";
+
+$engine.run(path1);
+$engine.run(path2);
+
+
+//示例结束
+//在AIGame中，每个被执行的脚本都被看作成一个任务($task)
+//每个被执行的脚本都含有一个属于自己的($task)任务对象
+//我们可以根据每个脚本专有的($task)任务对象获取数据
+
+for(let i = 0 ; i < 5; i++){
+    sleep(1000);
+    //获取当前脚本路径
+    log("脚本1:"+$task.getPath());
+}
+
+
+
+//在AIGame中，每个被执行的脚本都被看作成一个任务($task)
+//每个被执行的脚本都含有一个属于自己的($task)任务对象
+//我们可以根据每个脚本专有的($task)任务对象获取数据
+
+for(let i = 0 ; i < 5; i++){
+    sleep(1000);
+    //获取当前脚本路径
+    log("脚本2:"+$task.getPath());
+}
+
+
+//官方示例
+
+$engine.run("/ag-app-example/$engine - 脚本引擎/test/run.js");
+
+
+//示例结束//官方示例
+
+//读取脚本文件
+let code = $file.read("/ag-app-example/$engine - 脚本引擎/test/run.js");
+//执行脚本代码
+$engine.runCode(code);
+
+
+//示例结束//官方示例
+
+//定义脚本路径
+let path = "/ag-app-example/$engine - 脚本引擎/test/run.js";
+//读取脚本文件
+let code = $file.read(path);
+//执行脚本代码
+$engine.runCode(path, code);
+
+
+//示例结束//官方示例
+
+//定义脚本路径
+let path = "/ag-app-example/$engine - 脚本引擎/test/delay.js";
+
+//执行脚本(目的是拿到任务ID)
+let id = $engine.run(path);
+
+//我先创建一个应用级悬浮窗方便控制脚本引擎的暂停和开始
+let appFloaty = $floaty.newApp(`
+<ui>
+    <button id="pause" text="暂停" />
+    <button id="run" text="运行" />
+    <button id="close" text="关闭" />
+</ui>
+`);
+
+//绑定按钮点击事件
+appFloaty.id("pause").click(() => {
+    //暂停任务ID对应的脚本
+    $engine.pause(id);
+});
+
+appFloaty.id("run").click(() => {
+    //开始执行任务ID对应的脚本
+    $engine.start(id);
+});
+
+appFloaty.id("close").click(() => {
+    //关闭应用级悬浮窗
+    appFloaty.close();
+});
+
+
+
+//示例结束//官方示例
+
+
+let list = $engine.lsTask();
+
+for (let item of list) {
+    log(item);
+}
+
+
+
+//示例结束//官方示例
+
+
+
+$engine.stopAll();
+
+
+
+//示例结束//这里模拟一个延迟任务
+//主要是为了演示脚本的运行与暂停
+//由于脚本引擎是解释执行的
+//因此暂停脚本的时候：会从当前执行的语句暂停
+
+for (let i = 0; i < 15; i++) {
+    sleep(1000);
+    info("我还活着:" + (i + 1) + "秒");
+}
+
+
+alert("提示", "我是被执行的脚本");
+//官方示例
+
+//运行此代码之后，尝试自己手动加减音量，然后回来看日志
+$event.on("volume",(data)=>{
+    log("描述："+data.desc);
+    log("音量类型："+data.value.type);
+    log("当前音量："+data.value.curVolume);
+    log("最大音量："+data.value.maxVolume);
+    log("");//打印一行分割
+});
+
+
+
+
+//示例结束//官方示例
+
+//运行此代码之后，尝试自己手动关闭屏幕，然后回来看日志
+$event.on("screen",(data)=>{
+    //除了监听，你也可以使用 $screen.isScreenOn() 函数判断屏幕是否点亮
+    log("描述："+data.desc);
+    log("是否点亮："+data.value.screenOn);
+    log("是否关闭："+data.value.screenOff);
+    log("");//打印一行分割
+});
+
+
+
+
+//示例结束//官方示例
+
+
+//运行此代码之后，尝试自己手动解锁屏幕，然后回来看日志
+$event.on("screenUnlock",(data)=>{
+    log("描述："+data.desc);
+    log("是否解锁："+data.value.screenUnlock);
+    log("");//打印一行分割
+});
+
+
+
+
+//示例结束//官方示例
+
+
+//运行此代码之后，尝试自己手动联网或关闭网络，然后回来看日志
+$event.on("net",(data)=>{
+    //此方法不是专门针对wifi做的监听，所以wifi关闭时未必会回调这里
+    //如果想专门监听wifi请移步到下一个示例[05.WIFI监听.js]
+    log("描述："+data.desc);
+    log("网络类型："+data.value.type);//常用
+    log("链接状态："+data.value.connect);//常用
+    log("原因："+data.value.type);
+    log("附属类型："+data.value.subtype);
+    log("信息："+data.value.info);
+    log("");//打印一行分割
+});
+
+
+
+
+//示例结束//官方示例
+
+
+//运行此代码之后，尝试自己手动链接wifi或断开wifi，然后回来看日志
+$event.on("wifi",(data)=>{
+    log("描述："+data.desc);
+    log("是否启用："+data.value.enable);
+    log("正在启用："+data.value.enabling);
+    log("是否禁用："+data.value.disable);
+    log("正在禁用："+data.value.disabling);
+    log("");//打印一行分割
+});
+
+
+
+
+//示例结束//官方示例
+
+
+//运行此代码之后，尝试自己手动链接wifi或断开wifi，然后回来看日志
+$event.on("wifiState",(data)=>{
+    log("描述："+data.desc);
+    log("类型："+data.value.type);
+    log("原因："+data.value.reason);
+    log("信息："+data.value.info);
+    log("附属类型："+data.value.subtype);
+    log("");//打印一行分割
+});
+
+
+
+
+//示例结束//官方示例
+
+//主要监听电池电量相关的事件：充电器链接、电量低、电量恢复等事件
+$event.on("power",(data)=>{
+    log("描述："+data.desc);
+    log("充电器链接："+data.value.connect);
+    log("电量过低："+data.value.low);
+    log("电量恢复："+data.value.okay);
+    log("");//打印一行分割
+});
+
+
+
+
+//示例结束//官方示例
+
+//主要监听电池电量:电量百分比等等
+$event.on("battery",(data)=>{
+    log("描述："+data.desc);
+    log("电量百分比："+data.value.percent);
+    log("是否充电："+data.value.isCharge);
+    log("充电方式："+data.value.chargeType);
+    log("");//打印一行分割
+});
+
+
+
+
+//示例结束//官方示例
+
+//安卓6-11要位置权限 安卓12要蓝牙权限
+let ps = ["android.permission.ACCESS_FINE_LOCATION","android.permission.BLUETOOTH_CONNECT"];
+
+if ($permit.hasPermit(ps)) {
+    log("权限满足");
+} else {
+    $permit.getPermit(ps);
+}
+
+
+//可以尝试连接蓝牙耳机，观察日志信息
+$event.on("bluetooth",(data)=> {
+    log("描述："+data.desc);
+    log("是否连接："+data.value.connect);
+    log("是否开启："+data.value.on);
+    log("是否关闭："+data.value.off);
+    log("正在开启："+data.value.starting);
+    log("正在关闭："+data.value.closing);
+
+    if (data.value.address != null) {
+        log("连接MAC地址: "+data.value.address);
+    }
+
+    //需要蓝牙权限:如果没有就是null
+    if (data.value.name != null) {
+        log("设备名称: "+data.value.name);
+    }
+
+    //需要蓝牙权限并且安卓11+:如果没有就是null
+    if (data.value.alias != null) {
+        log("设备别名: "+data.value.alias);
+    }
+
+    log(""); //打印一行分割
+});
+
+
+
+
+//示例结束//官方示例
+
+//手动锁屏再解锁，最后观察日志
+$event.on("lock",(data)=> {
+    //lock事件并非是一个专门监听屏幕事件的监听器
+    //如果你想监听屏幕事件，请移步[02.屏幕监听.js]
+    //除了监听，你也可以使用 $device.isLock() 来判断设备是否锁定
+    log("描述："+data.desc);
+    log("是否锁屏："+data.value.lock);
+    log("屏幕点亮："+data.value.screenOn);
+    log("屏幕熄灭："+data.value.screenOff);
+    log(""); //打印一行分割
+});
+
+
+
+
+//示例结束//官方示例
+
+//主要用来监听磁盘挂载、移除等事件，不算常用
+$event.on("media",(data)=> {
+    log("描述："+data.desc);
+    log("挂载："+data.value.mount);
+    log("卸载："+data.value.unmount);
+    log("移除："+data.value.remove);
+    log("移除操作不当："+data.value.badRemove);
+    log(""); //打印一行分割
+});
+
+
+
+
+//示例结束//官方示例
+
+//运行此代码之后，尝试自己手动HOME按键或者菜单RECENT按键，然后回来看日志
+$event.on("key",(data)=>{
+    log(data);
+    log("");//打印一行分割
+});
+
+
+
+
+//示例结束//官方示例
+
+//获取应用访问权限
+if (!$permit.hasNotifyAccess()) {
+    $permit.notifyAccess();
+} else {
+    //通知监听 需要授予通知访问权限才能监听到通知
+    $event.on("notify",(data)=> {
+        log("包名:",data.value.pkg);
+        log("标题:",data.value.title);
+        log("内容:",data.value.text);
+        log("副文本:",data.value.subText);
+        log("提示文本:",data.value.tickerText);
+        log("大文本:",data.value.bigText);
+        log("时间:",data.value.postTime);
+        log("是否为持续通知:",data.value.isOngoing);
+        log("是否可清除:",data.value.isClearable);
+        log(""); //用来分隔
+    });
+}
+
+
+
+//示例结束//官方示例
+
+//当屏幕旋转时触发
+$event.on("screenDir",(data)=> {
+    log("角度:",data.value.rotation);
+    log("是否竖屏:",data.value.isVertical);
+    log(""); //用来分隔
+});
+
+
+//示例结束//官方示例
+
+
+//读取第一个表格数据
+let data = $excel.read("ag-app-example/$excel - 表格操作/data.xlsx");//相对路径
+alert("表格数据",data);
+
+
+
+
+//示例结束//官方示例
+
+
+//读取第2个表格数据:指定下标
+let data = $excel.read(
+"ag-app-example/$excel - 表格操作/data.xlsx" ,//相对路径
+ 1 //表格下标
+);
+alert("表格数据",data);
+
+
+
+//示例结束//官方示例
+
+
+//获取表格数量
+let sheetNum = $excel.num("ag-app-example/$excel - 表格操作/data.xlsx");
+alert("表格数量",sheetNum);
+
+
+
+//示例结束//官方示例
+
+
+//获取表格名称列表
+let sheetList = $excel.ls("ag-app-example/$excel - 表格操作/data.xlsx");
+alert("表格名称",sheetList);
+
+
+
+//示例结束//官方示例
+
+
+//遍历所有表格数据
+let path = "ag-app-example/$excel - 表格操作/data.xlsx";
+$excel.loop(path, (name, data) => {
+    alert(name,data);
+});
+
+
+
+//示例结束
+
+
+
+//官方示例
+
+
+//数据
+let sheetData = [
+    ["姓名", "年龄"],
+    ["小红", "18"],//注意必须都是字符串类型
+    ["小明", "19"]
+];
+//表名
+let sheetName = "我的表格";
+//路径
+let savePath = "/sdcard/demo.xlsx";
+$excel.write(sheetName, sheetData, savePath);
+
+toast("写入完毕");
+
+//之后再读取出来看看
+sleep(1000);
+alert("表格数据",$excel.read(savePath));
+
+//示例结束//官方示例
+
+//先加载dex文件
+$ext.loadDex({
+    path:["ag-app-example/$ext - 加载ApkDexJarSo文件/libs/dex_so/classes.dex"],
+    so:[
+        {
+            //根据自己手机的情况,选正确的架构,不然so文件的C代码无法运行
+            path:"ag-app-example/$ext - 加载ApkDexJarSo文件/libs/dex_so/lib/arm64-v8a/libdemo.so",
+            load:false,//因为在dex的类中已经静态加载了so文件,所以不能再重复加载了(安卓机制)
+        }
+    ]
+});
+
+//开始直接使用dex中的类(参考源代码)
+let demo = new org.aigame.demo.CallC();
+
+//调用类中的方法
+alert("示例",demo.getStr());
+
+
+
+//示例结束//官方示例
+
+
+//先加载jar文件
+$ext.loadJar({
+    path:["ag-app-example/$ext - 加载ApkDexJarSo文件/libs/jar_so/classes.jar"],
+    so:[
+        {
+            //根据自己手机的情况,选正确的架构,不然so文件的C代码无法运行
+            path:"ag-app-example/$ext - 加载ApkDexJarSo文件/libs/jar_so/lib/arm64-v8a/libdemo.so",
+            load:false,//因为在jar的类中已经静态加载了so文件,所以不能再重复加载了(安卓机制)
+        }
+    ]
+});
+
+//开始直接使用jar中的类(参考源代码)
+let demo = new org.aigame.demo.JarCallC();
+
+//调用类中的方法
+alert("示例",demo.getStr());
+
+
+
+//示例结束//官方示例
+
+//先加载apk文件
+$ext.loadApk("ag-app-example/$ext - 加载ApkDexJarSo文件/libs/apk/lib.apk");
+
+//开始直接使用apk中的类(参考源代码)
+let demo = new org.aigame.apk.ApkDemo();
+
+//调用类中的方法
+alert("示例",demo.getStr());
+
+
+
+//示例结束//官方示例
+
+//先加载dex文件
+$ext.loadDex("ag-app-example/$ext - 加载ApkDexJarSo文件/libs/dex/classes.dex");
+
+//开始直接使用dex中的类(参考源代码)
+let demo = new org.aigame.demo.DexDemo();
+
+//调用类中的方法
+alert("示例",demo.getStr());
+
+
+
+//示例结束//官方示例
+
+//先加载jar文件
+$ext.loadJar("ag-app-example/$ext - 加载ApkDexJarSo文件/libs/jar/classes.jar");
+
+//开始直接使用dex中的类(参考源代码)
+let demo = new org.aigame.demo.JarDemo();
+
+//调用类中的方法
+alert("示例",demo.getStr());
+
+
+
+//示例结束//官方示例
+
+//加载多个dex文件
+let basePath = "ag-app-example/$ext - 加载ApkDexJarSo文件/libs/dexs/多个dex";
+
+//拼接目录
+let paths = [
+    `${basePath}/classes1.dex`,
+    `${basePath}/classes2.dex`,
+    `${basePath}/classes3.dex`
+];
+
+//加载多个dex文件(传入所有dex文件的路径数组即可)
+$ext.loadDexs(paths);
+
+//开始直接使用dex中的类(参考源代码)
+let dex1 = new org.aigame.dex1.DexDemo();//classes1.dex
+let dex2 = new org.aigame.dex2.DexDemo();//classes2.dex
+let dex3 = new org.aigame.dex3.DexDemo();//classes3.dex
+
+//调用类中的方法
+alert("示例",dex1.getStr()+"\n"+dex2.getStr()+"\n"+dex3.getStr());
+
+
+
+//示例结束//官方示例
+
+//加载多个jar文件
+let basePath = "ag-app-example/$ext - 加载ApkDexJarSo文件/libs/jars/多个jar文件";
+
+//拼接目录
+let paths = [
+    `${basePath}/classes1.jar`,
+    `${basePath}/classes2.jar`,
+    `${basePath}/classes3.jar`
+];
+
+//加载多个jar文件(传入所有jar文件的路径数组即可)
+$ext.loadJars(paths);
+
+//开始直接使用jar中的类(参考源代码)
+let jar1 = new org.aigame.jar1.JarDemo();//classes1.jar
+let jar2 = new org.aigame.jar2.JarDemo();//classes2.jar
+let jar3 = new org.aigame.jar3.JarDemo();//classes3.jar
+
+//调用类中的方法
+alert("示例",jar1.getStr()+"\n"+jar2.getStr()+"\n"+jar3.getStr());
+
+
+
+//示例结束//文件选择器
+
+$fc.show((files)=> {
+    for (let i = 0; i < files.length; i++) {
+        log(files[i]);
+    }
+});
+
+
+
+//..//文件选择器
+
+$fc.show((files)=> {
+    for (let i = 0; i < files.length; i++) {
+        log(files[i]);
+    }
+}, {
+    root: "/sdcard",
+    path: "/sdcard/Pictures",
+    mode: "s",
+    type: "m"
+});
+
+
+
+//..//文件选择器
+
+$fc.show((files)=> {
+    for (let i = 0; i < files.length; i++) {
+        log(files[i]);
+    }
+}, {
+    root: "/sdcard",
+    path: "/sdcard/Pictures",
+    mode: "s",
+    type: "a"
+});
+
+
+
+//..//文件选择器
+
+$fc.show((files)=> {
+    for (let i = 0; i < files.length; i++) {
+        log(files[i]);
+    }
+}, {
+    root: "/sdcard",
+    path: "/sdcard/Pictures",
+    mode: "s",
+    type: "f"
+});
+
+
+
+//..//文件选择器
+
+$fc.show((files)=> {
+    for (let i = 0; i < files.length; i++) {
+        log(files[i]);
+    }
+}, {
+    root: "/sdcard",
+    path: "/sdcard/Pictures",
+    mode: "m",
+    type: "m"
+});
+
+
+
+//..//文件选择器
+
+//多选：文件和目录
+$fc.show((files)=> {
+    for (let i = 0; i < files.length; i++) {
+        log(files[i]);
+    }
+}, {
+    root: "/sdcard",
+    path: "/sdcard/Pictures",
+    mode: "m",
+    type: "a"
+});
+
+
+
+//..//文件选择器
+
+$fc.show((files)=> {
+    for (let i = 0; i < files.length; i++) {
+        log(files[i]);
+    }
+}, {
+    root: "/sdcard",
+    path: "/sdcard/Pictures",
+    mode: "m",
+    type: "f"
+});
+
+
+
+//..//AIGame 官方示例
+
+//准备路径
+let path = "/sdcard";
+//罗列出文件
+let files = $file.ls(path);
+
+for(let i = 0 ; i < files.size() ; i++){
+    log(files.get(i));
+}
+
+log("罗列(使用过滤器)");
+let files_A = $file.ls(path,(path)=>{
+    let fileName = $file.name(path);
+    //如果文件名称以'.'开始,那么就通过
+    return $str.startWith(fileName, ".");
+});
+
+//找到隐藏文件夹
+for(let i = 0 ; i < files_A.size() ; i++){
+    log(files_A.get(i));
+}
+
+
+//示例结束//AIGame 官方示例
+
+//false:文件不存在或存在是目录
+let isFile = $file.isFile("/sdcard/a.txt");
+log("是否是文件",isFile);
+
+//是否是目录
+let isDir = $file.isDir("/sdcard");
+log("是否是目录",isDir);
+
+//是否是空目录
+let isEmptyDir = $file.isEmptyDir("/sdcard");
+log("是否是空目录",isEmptyDir);
+
+//是否是空文件或文件夹
+let isEmpty = $file.isEmpty("/sdcard");
+log("是否是空文件",isEmpty);
+
+//示例结束//AIGame 官方示例
+
+
+let path1 = $file.join("sdcard", "Pictures");
+
+log(path1);
+
+let path2 = $file.join("sdcard", "Pictures", "我的项目", "res");
+
+log(path2);
+
+//示例结束//AIGame 官方示例
+
+$file.create("/sdcard/测试.txt");
+
+
+//示例结束//AIGame 官方示例
+
+let path = "/sdcard/AAA";
+$file.mkdir(path);
+
+//判断目录是否存在
+if($file.exists(path)){
+    log("目录创建完成");
+}
+
+//最后删除(没必要留着)
+$file.del(path);
+
+//示例结束//AIGame 官方示例
+
+//开始读取文件
+let content = $file.read("/sdcard/测试.txt");
+log(content);
+
+//示例结束//AIGame 官方示例
+
+
+$file.write("我是内容","/sdcard/测试.txt");
+
+
+//示例结束//AIGame 官方示例
+
+
+$file.append("我是内容","/sdcard/测试.txt");
+
+//示例结束//AIGame 官方示例
+
+let from = "/sdcard/测试.txt";
+let to = "/sdcard/测试2.txt";
+$file.copy(from, to);
+
+//最后判断文件是否存在
+if($file.exists(to)){
+    log("拷贝成功");
+}
+
+//示例结束//AIGame 官方示例
+
+let from = "/sdcard/测试.txt";
+let to = "/sdcard/Pictures/测试2.txt";
+$file.move(from, to);
+
+//最后判断文件是否存在
+if($file.exists(to)){
+    log("移动成功");
+}
+
+
+//示例结束//AIGame 官方示例
+
+let path = "/sdcard/Pictures/测试2.txt";
+$file.del(path);
+
+//最后判断文件是否存在
+if(!$file.exists(path)){
+    log("删除成功");
+}
+
+
+//示例结束//AIGame 官方示例
+
+let from = "/sdcard/测试.txt";
+let to = "/sdcard/测试2.txt";
+$file.rename(from, to);
+
+//最后判断文件是否存在
+if($file.exists(to)){
+    log("命名成功");
+}
+
+
+//示例结束//官方示例
+
+//(1)创建并且显示可调节悬浮窗
+let floaty = $floaty.newAdj(`
+<ui>
+    <linear dir="v" w="max">
+        <button text="按钮1" w="max"/>
+        <button text="按钮2" w="max"/>
+        <button id="closeButton" text="关闭" w="max"/>
+    </linear>
+</ui>
+`);
+
+//(2).绑定按钮点击事件
+floaty.id("closeButton").click(()=>{
+    floaty.close();
+});
+
+
+//示例结束//AIGame官方示例
+
+//先把之前创建的悬浮窗全部关掉
+$floaty.closeAll();
+
+
+let floaty = $floaty.newApp(`
+<ui>
+    <linear w="max" h="max" bg="#33FF0000" >
+        <button id="mButton" text="关闭" ripper="#FFFFFF" />
+        <button id="mBut1" text="全屏" ripper="#FFFFFF" />
+        <button id="mBut2" text="非全屏" ripper="#FFFFFF" />
+        <button id="mBut3" text="取消触摸" ripper="#FFFFFF" />
+        <button id="mBut4" text="修改位置" ripper="#FFFFFF" />
+    </linear>
+</ui>
+`);
+
+
+//监听按钮：点击后关闭这个悬浮窗
+floaty.id("mButton").click(()=>{
+    floaty.close();
+});
+
+//全屏
+floaty.id("mBut1").click(()=>{
+    floaty.fill(true);
+});
+
+//非全屏
+floaty.id("mBut2").click(()=>{
+    floaty.fill(false);
+});
+
+//取消触摸 3秒之后 开启触摸
+floaty.id("mBut3").click(()=>{
+    floaty.touch(false);
+    $thread.run(()=>{
+       sleep(3000);
+       floaty.touch(true);
+       toast("开启触摸啦");
+    });
+});
+
+//修改位置
+floaty.id("mBut4").click(()=>{
+    floaty.setXY(300,400);
+});
+
+
+
+//示例结束//AIGame官方示例
+
+//先把之前创建的悬浮窗全部关掉
+$floaty.closeAll();
+
+alert("提示","我将显示一个全屏的悬浮窗，你可以触摸任意位置，我会显示你触摸位置的坐标并且显示一个准心图片，点击关闭后，我会复制这个位置到剪切板上！");
+
+let floaty = $floaty.newApp(`
+<ui>
+    <linear id="mLinear" w="max" h="max" gravity="center">
+        <text id="mText"/>
+        <button id="mButton" text="关闭" ripper="#FFFFFF" />
+        <img id="mImg" src="ic_record" tint="colorPrimary" />
+    </linear>
+</ui>
+`);
+
+let x = 0;
+let y = 0;
+
+floaty.fill(true);
+//获取安卓原生控件：监听touch事件 (原生交互案例,仅供学习)
+floaty.id("mLinear").getView().setOnTouchListener((view,event)=> {
+    x = Math.round(event.getRawX());
+    y = Math.round(event.getRawY());
+    floaty.id("mText").setText(x+","+y);
+    //显示一个准心图标
+    let img = floaty.id("mImg");
+    img.setX(x-img.getW()/2);
+    img.setY(y-img.getH()/2);
+    return true;
+});
+
+
+
+//监听按钮：点击后关闭这个悬浮窗
+floaty.id("mButton").click(()=> {
+    floaty.close();
+    setClip(x+","+y);
+    toast("坐标复制完成");
+});
+
+
+
+
+
+
+//示例结束//AIGame 官方示例
+
+
+//关闭悬浮窗
+$floaty.closeAll();
+
+
+
+//示例结束//AIGame官方示例
+
+//先把之前创建的悬浮窗全部关掉
+$floaty.closeAll();
+
+
+let floaty = $floaty.newSys(`
+<ui>
+    <linear w="max" h="max" bg="#33FF0000" >
+        <button id="mButton" text="关闭" ripper="#FFFFFF" />
+        <button id="mBut1" text="全屏" ripper="#FFFFFF" />
+        <button id="mBut2" text="非全屏" ripper="#FFFFFF" />
+        <button id="mBut3" text="取消触摸" ripper="#FFFFFF" />
+        <button id="mBut4" text="修改位置" ripper="#FFFFFF" />
+    </linear>
+</ui>
+`);
+
+
+//监听按钮：点击后关闭这个悬浮窗
+floaty.id("mButton").click(()=>{
+    floaty.close();
+});
+
+//全屏
+floaty.id("mBut1").click(()=>{
+    floaty.fill(true);
+});
+
+//非全屏
+floaty.id("mBut2").click(()=>{
+    floaty.fill(false);
+});
+
+//取消触摸 3秒之后 开启触摸
+floaty.id("mBut3").click(()=>{
+    floaty.touch(false);
+    $thread.run(()=>{
+       sleep(3000);
+       floaty.touch(true);
+       toast("开启触摸啦");
+    });
+});
+
+//修改位置
+floaty.id("mBut4").click(()=>{
+    floaty.setXY(300,400);
+});
+
+
+
+//示例结束//AIGame官方示例
+
+//先把之前创建的悬浮窗全部关掉
+$floaty.closeAll();
+
+alert("提示","我将显示一个全屏的悬浮窗，你可以触摸任意位置，我会显示你触摸位置的坐标并且显示一个准心图片，点击关闭后，我会复制这个位置到剪切板上！");
+
+let floaty = $floaty.newSys(`
+<ui>
+    <linear id="mLinear" w="max" h="max" gravity="center">
+        <text id="mText"/>
+        <button id="mButton" text="关闭" ripper="#FFFFFF" />
+        <img id="mImg" src="ic_record" tint="colorPrimary" />
+    </linear>
+</ui>
+`);
+
+let x = 0;
+let y = 0;
+
+floaty.fill(true);
+//获取安卓原生控件：监听touch事件 (原生交互案例,仅供学习)
+floaty.id("mLinear").getView().setOnTouchListener((view,event)=> {
+    x = Math.round(event.getRawX());
+    y = Math.round(event.getRawY());
+    floaty.id("mText").setText(x+","+y);
+    //显示一个准心图标
+    let img = floaty.id("mImg");
+    img.setX(x-img.getW()/2);
+    img.setY(y-img.getH()/2);
+    return true;
+});
+
+
+
+//监听按钮：点击后关闭这个悬浮窗
+floaty.id("mButton").click(()=> {
+    floaty.close();
+    setClip(x+","+y);
+    toast("坐标复制完成");
+});
+
+
+
+
+
+
+//示例结束//AIGame 官方示例
+
+
+//关闭悬浮窗
+$floaty.closeAll();
+
+
+
+//示例结束//选择区域悬浮窗
+$floaty.newSelect((rect)=>{
+    log("用户选择范围:",rect);
+});//此示例的服务器我已经临时搭建,可以直接运行看到效果
+
+let ip = "47.105.110.90";
+let port = "8347";
+let mode = "postJson";
+
+let res = $http.post({
+    url: `http://${ip}:${port}/org/aigame/pro/example/${mode}`,
+    //直接发送json对象或者json字符串也可以
+    data: {
+        sex:"女"
+    },
+});
+
+
+alert("结果",res.str());//此示例的服务器我已经临时搭建,可以直接运行看到效果
+
+let ip = "47.105.110.90";
+let port = "8347";
+let mode = "postString";
+
+let res = $http.post({
+    url: `http://${ip}:${port}/org/aigame/pro/example/${mode}`,
+    data: "本地字符串",
+});
+
+
+alert("结果",res.str());let url = "https://api.deepseek.com/chat/completions";
+
+alert("注意","请到代码中填写ApiKey才能调用成功!");
+
+//自己填写key
+let apiKey = ""; //类似于"sk-m451xc526v394f82b90163272c577s"
+
+let res = $http.post({
+    url: url,
+    head: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer "+apiKey,
+    },
+    data: {
+            model: "deepseek-chat",
+            messages: [
+            {
+                role: "system",
+                content: "You are a helpful assistant."
+            },
+            {
+                role: "user",
+                content: "Hello!"
+            }],
+            stream: false
+    }
+});
+
+
+/*
+原理很简单，就是把官方网站提供的curl调用示例，用javascript翻译过来就行了
+
+curl https://api.deepseek.com/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <DeepSeek API Key>" \
+  -d '{
+        "model": "deepseek-chat",
+        "messages": [
+          {"role": "system", "content": "You are a helpful assistant."},
+          {"role": "user", "content": "Hello!"}
+        ],
+        "stream": false
+      }'
+
+*/
+
+
+alert("请求结果",res.str());
+
+/*
+注意：res.str();是返回响应的字符串
+
+如果你想直接操作json对象，那么请调用 res.json(); 然后打点调属性即可
+
+
+*/
+
+
+
+
+let url = "https://pics0.baidu.com/feed/f11f3a292df5e0feee2783e88baf3fa75fdf727e.jpeg?token=4afc91463326e4f4a44e2cde691a54a0";
+let path = "/sdcard/美女.png";
+
+//异步下载
+$http.download(url,path,(cur,total,percent)=>{
+    log("下载进度",percent);
+},()=>{
+    log("下载完毕，正在显示美女图片...");
+    showImg(path);
+},(res)=>{
+    log("下载失败",res);
+});// AIGame官方示例
+
+
+$log.i("信息");
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+$log.d("调试");
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+$log.w("警告");
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+$log.e("异常");
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+$log.v("冗余");
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+$log.log("hello");
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+$log.floaty();
+
+
+
+
+// 示例结束//官方示例
+
+// 我自己放了几个音频文件，你可以自己选择一个播放
+let resArr = [
+"ag-app-example/$media - 音频播放/res/qq系统提示音.mp3",
+"ag-app-example/$media - 音频播放/res/开机音效.mp3",
+"ag-app-example/$media - 音频播放/res/微信消息.mp3",
+"ag-app-example/$media - 音频播放/res/短信音效.mp3"
+];
+
+// 开始播放音频
+$media.play(resArr[0]);
+
+
+//示例结束//二值化识别:截屏某个区域识别
+//识别前会将图片进行二值化处理:会把主要的颜色保留成白色,其余的都是黑色
+$screen.getPermit();
+
+//指定ocr引擎为mlkit
+$ocr.v("mlkit");
+
+//注意:mlkit无法计算出相似度,所以similar固定为0.85
+
+//显示出图片
+showImg("./ag-app-example/$ocr - 文字识别/imgs/t02.png");
+
+//根据屏幕大小计算出大致的范围(如果你的手机识别失败,请手动修改)
+let si = $screen.getScreenInfo();
+let re = [0,si.h/3,si.w ,si.h/3];
+
+//绘制出大概的识别范围
+$draw.rect(re[0],re[1],re[2],re[3]);
+
+sleep(1000); //延迟1秒(免得图片还没显示,就开始识别了)
+
+//开始识别
+let result = $ocr.detect({
+    region: [re[0],re[1],re[2],re[3]],
+    gray: false,//关闭灰度化识别
+    color: "#356EFF",//(必须)设置主要颜色(蓝色)
+    threshold: 30,//(必须)二值化阈值
+    save: true,//(可选)开启保存图片
+    savePath: "/sdcard/ocr-thre.png",//(可选)保存位置
+});
+
+
+alert("识别结果",result);
+
+if ($file.exists("/sdcard/ocr-thre.png")) {
+    showImg("/sdcard/ocr-thre.png"); //显示二值化后的图片
+}
+
+$draw.closeAll(); //关闭全局绘制
+//..//灰度化识别会截屏,在屏幕的某个区域进行识别
+//识别前会将图片进行灰度化,之后在进行识别
+$screen.getPermit();
+
+//指定ocr引擎为mlkit
+$ocr.v("mlkit");
+
+//注意:mlkit无法计算出相似度,所以similar固定为0.85
+
+//显示出图片
+showImg("./ag-app-example/$ocr - 文字识别/imgs/t01.png");
+
+//根据屏幕大小计算出大致的范围(如果你的手机识别失败,请手动修改)
+let si = $screen.getScreenInfo();
+let re = [0,si.h/3,si.w ,si.h/3];
+
+//绘制出大概的识别范围
+$draw.rect(re[0],re[1],re[2],re[3]);
+
+sleep(1000);//延迟1秒(免得图片还没显示,就开始识别了)
+
+//开始识别
+let result = $ocr.detect({
+    region: [re[0],re[1],re[2],re[3]],
+    gray:true,//开启灰度化识别
+    save: true,//(可选)开启保存图片
+    savePath: "/sdcard/ocr-gray.png",//(可选)保存位置
+});
+
+
+alert("识别结果",result);
+
+if($file.exists("/sdcard/ocr-gray.png")){
+    showImg("/sdcard/ocr-gray.png");//显示灰度化后的图片
+}
+
+$draw.closeAll();//关闭全局绘制
+//..//指定ocr引擎为mlkit
+$ocr.v("mlkit");
+
+//开始识别本地图片
+let res = $ocr.detectPath("./ag-app-example/$ocr - 文字识别/imgs/t01.png");
+
+alert("识别结果",res);
+
+//注意:mlkit无法计算出相似度,所以similar固定为0.85//二值化识别:截屏某个区域识别
+//识别前会将图片进行二值化处理:会把主要的颜色保留成白色,其余的都是黑色
+$screen.getPermit();
+
+//指定ocr引擎为ncnn
+$ocr.v("ncnn");
+
+//ncnn识别引擎需要初始化,但是mlkit不用
+$ocr.init();
+
+//显示出图片
+showImg("./ag-app-example/$ocr - 文字识别/imgs/t02.png");
+
+//根据屏幕大小计算出大致的范围(如果你的手机识别失败,请手动修改)
+let si = $screen.getScreenInfo();
+let re = [0,si.h/3,si.w ,si.h/3];
+
+//绘制出大概的识别范围
+$draw.rect(re[0],re[1],re[2],re[3]);
+
+sleep(1000); //延迟1秒(免得图片还没显示,就开始识别了)
+
+//开始识别
+let result = $ocr.detect({
+    region: [re[0],re[1],re[2],re[3]],
+    gray: false,//关闭灰度化识别
+    color: "#356EFF",//(必须)设置主要颜色(蓝色)
+    threshold: 30,//(必须)二值化阈值
+    save: true,//(可选)开启保存图片
+    savePath: "/sdcard/ocr-thre.png",//(可选)保存位置
+});
+
+
+alert("识别结果",result);
+
+if ($file.exists("/sdcard/ocr-thre.png")) {
+    showImg("/sdcard/ocr-thre.png"); //显示二值化后的图片
+}
+
+$draw.closeAll(); //关闭全局绘制
+//..//灰度化识别会截屏,在屏幕的某个区域进行识别
+//识别前会将图片进行灰度化,之后在进行识别
+$screen.getPermit();
+
+//指定ocr引擎为ncnn
+$ocr.v("ncnn");
+//ncnn识别引擎需要初始化,但是mlkit不用
+$ocr.init();
+
+//显示出图片
+showImg("./ag-app-example/$ocr - 文字识别/imgs/t01.png");
+
+//根据屏幕大小计算出大致的范围(如果你的手机识别失败,请手动修改)
+let si = $screen.getScreenInfo();
+let re = [0,si.h/3,si.w ,si.h/3];
+
+//绘制出大概的识别范围
+$draw.rect(re[0],re[1],re[2],re[3]);
+
+sleep(1000);//延迟1秒(免得图片还没显示,就开始识别了)
+
+//开始识别
+let result = $ocr.detect({
+    region: [re[0],re[1],re[2],re[3]],
+    gray:true,//开启灰度化识别
+    save: true,//(可选)开启保存图片
+    savePath: "/sdcard/ocr-gray.png",//(可选)保存位置
+});
+
+
+alert("识别结果",result);
+
+if($file.exists("/sdcard/ocr-gray.png")){
+    showImg("/sdcard/ocr-gray.png");//显示灰度化后的图片
+}
+
+$draw.closeAll();//关闭全局绘制
+//..//指定ocr引擎为ncnn
+$ocr.v("ncnn");
+//ncnn识别引擎需要初始化,但是mlkit不用
+$ocr.init();
+
+//开始识别本地图片
+let res = $ocr.detectPath("./ag-app-example/$ocr - 文字识别/imgs/t01.png");
+
+alert("识别结果",res);//判断是否有写入日历权限
+let has = $permit.hasWriteCalendar();
+
+if (has) {
+    toast("有权限");
+} else {
+    toast("无权限");
+    $tip.show("获取权限","是否获取权限?",()=> {
+        //获取写入日历权限
+        $permit.writeCalendar();
+    });
+}
+
+
+
+
+//测试记录:
+/*
+【1】：模拟器
+雷电    安卓9   完美
+雷电    安卓7   完美
+
+
+【2】：真机
+OPPO A92S     安卓12     完美
+
+
+
+
+
+
+*///判断是否有写入联系人权限
+let has = $permit.hasWriteContact();
+
+if (has) {
+    toast("有权限");
+} else {
+    toast("无权限");
+    $tip.show("获取权限","是否获取权限?",()=> {
+        //获取写入联系人权限
+        $permit.writeContact();
+    });
+}
+
+
+
+
+//测试记录:
+/*
+【1】：模拟器
+雷电    安卓9   完美
+雷电    安卓7   完美
+
+
+【2】：真机
+OPPO A92S     安卓12     完美
+
+
+
+
+
+
+*///使用安卓原生类中定义的权限字符串
+let has = $permit.hasPermit(android.Manifest.permission.GET_ACCOUNTS);
+
+if (has) {
+    toast("有权限");
+} else {
+    toast("无权限");
+}
+
+
+
+
+//测试记录:
+/*
+【1】：模拟器
+雷电    安卓9   完美
+雷电    安卓7   完美
+
+
+【2】：真机
+OPPO A92S     安卓12     完美
+
+
+
+
+
+
+*///使用安卓原生类中定义的权限字符串
+
+$permit.getPermit(android.Manifest.permission.GET_ACCOUNTS);
+
+
+
+
+
+//测试记录:
+/*
+【1】：模拟器
+雷电    安卓9   完美
+雷电    安卓7   完美
+
+
+【2】：真机
+OPPO A92S     安卓12     完美
+
+
+
+
+
+
+*///判断是否有发送短信权限
+let has = $permit.hasSendSms();
+
+if (has) {
+    toast("有权限");
+} else {
+    toast("无权限");
+    $tip.show("获取权限","是否获取权限?",()=> {
+        //获取发送短信权限
+        $permit.sendSms();
+    });
+}
+
+
+
+
+//测试记录:
+/*
+【1】：模拟器
+雷电    安卓9   完美
+雷电    安卓7   完美
+
+
+【2】：真机
+OPPO A92S     安卓12     完美
+
+
+
+
+
+
+*///判断是否有外部存储权限
+let has = $permit.hasSd();
+
+if (has) {
+    toast("有权限");
+} else {
+    toast("无权限");
+    $tip.show("获取权限","是否获取权限?",()=> {
+        //获取外部存储权限
+        $permit.sd();
+    });
+}
+
+
+
+
+
+//测试记录:
+/*
+【1】：模拟器
+雷电    安卓9   完美
+雷电    安卓7   完美
+
+
+【2】：真机
+OPPO A92S     安卓12     完美
+
+
+
+
+
+
+*///判断是否有定位权限
+let has = $permit.hasLoc();
+
+if (has) {
+    toast("有权限");
+} else {
+    toast("无权限");
+    $tip.show("获取权限","是否获取权限?",()=> {
+        //获取定位权限
+        $permit.loc();
+    });
+}
+
+
+
+
+//测试记录:
+/*
+【1】：模拟器
+雷电    安卓9   完美
+雷电    安卓7   完美
+
+
+【2】：真机
+OPPO A92S     安卓12     完美
+
+
+
+
+
+
+*///判断是否有录音权限
+let has = $permit.hasRecord();
+
+if (has) {
+    toast("有权限");
+} else {
+    toast("无权限");
+    $tip.show("获取权限","是否获取权限?",()=> {
+        //获取录音权限
+        $permit.record();
+    });
+}
+
+
+
+
+//测试记录:
+/*
+【1】：模拟器
+雷电    安卓9   完美
+雷电    安卓7   完美
+
+
+【2】：真机
+OPPO A92S     安卓12     完美
+
+
+
+
+
+
+*///判断是否有悬浮窗权限
+let has = $permit.hasFloaty();
+
+if (has) {
+    toast("有权限");
+} else {
+    toast("无权限");
+    $tip.show("获取权限","是否获取权限?",()=> {
+        //获取悬浮窗权限
+        $permit.floaty();
+    });
+}
+
+
+
+//测试记录:
+/*
+【1】：模拟器
+雷电    安卓9   完美
+雷电    安卓7   完美
+
+
+【2】：真机
+OPPO A92S     安卓12     完美
+
+
+
+
+
+
+*///判断是否有无障碍权限
+let has = $permit.hasWza();
+
+if (has) {
+    toast("有权限");
+} else {
+    toast("无权限");
+    $tip.show("获取权限","是否获取权限?",()=> {
+        //获取无障碍权限
+        $permit.wza();
+    });
+}
+
+
+
+
+//测试记录:
+/*
+【1】：模拟器
+雷电    安卓9   完美
+雷电    安卓7   完美
+
+
+【2】：真机
+OPPO A92S     安卓12     完美
+
+
+
+
+
+
+*/// 电话权限组
+
+let permits = [
+    "android.permission.READ_PHONE_STATE",
+    "android.permission.CALL_PHONE"
+];
+
+
+let has = $permit.hasPermit(permits);
+
+if (has) {
+    toast("有权限");
+} else {
+    toast("无权限");
+}
+
+
+
+
+
+
+//测试记录:
+/*
+【1】：模拟器
+雷电    安卓9   完美
+雷电    安卓7   完美
+
+
+【2】：真机
+OPPO A92S     安卓12     完美
+
+
+
+
+
+
+*/// 电话权限组
+
+let permits = [
+    "android.permission.READ_PHONE_STATE",
+    "android.permission.CALL_PHONE"
+];
+
+
+$permit.getPermit(permits);
+
+
+
+
+
+
+//测试记录:
+/*
+【1】：模拟器
+雷电    安卓9   完美
+雷电    安卓7   完美
+
+
+【2】：真机
+OPPO A92S     安卓12     完美
+
+
+
+
+
+
+*///判断是否有相机权限
+let has = $permit.hasCamera();
+
+if (has) {
+    toast("有权限");
+} else {
+    toast("无权限");
+    $tip.show("获取权限","是否获取权限?",()=> {
+        //获取相机权限
+        $permit.camera();
+    });
+}
+
+
+
+
+//测试记录:
+/*
+【1】：模拟器
+雷电    安卓9   完美
+雷电    安卓7   完美
+
+
+【2】：真机
+OPPO A92S     安卓12     完美
+
+
+
+
+
+
+*///判断是否有系统设置权限
+let has = $permit.hasSet();
+
+if (has) {
+    toast("有权限");
+} else {
+    toast("无权限");
+    $tip.show("获取权限","是否获取权限?",()=> {
+        //获取系统设置权限
+        $permit.set();
+    });
+}
+
+
+
+
+//测试记录:
+/*
+【1】：模拟器
+雷电    安卓9   完美
+雷电    安卓7   完美
+
+
+【2】：真机
+OPPO A92S     安卓12     完美
+
+
+
+
+
+
+*///判断是否有网络权限
+let has = $permit.hasNet();
+
+if (has) {
+    toast("有权限");
+} else {
+    toast("无权限");
+    $tip.show("获取权限","是否获取权限?",()=> {
+        //获取网络权限
+        $permit.net();
+    });
+}
+
+
+
+
+//测试记录:
+/*
+【1】：模拟器
+雷电    安卓9   完美
+雷电    安卓7   完美
+
+
+【2】：真机
+OPPO A92S     安卓12     完美
+
+
+
+
+
+
+*///判断是否有读取信息权限
+let has = $permit.hasReadSms();
+
+if (has) {
+    toast("有权限");
+} else {
+    toast("无权限");
+    $tip.show("获取权限","是否获取权限?",()=> {
+        //获取读取信息权限
+        $permit.readSms();
+    });
+}
+
+
+
+
+//测试记录:
+/*
+【1】：模拟器
+雷电    安卓9   完美
+雷电    安卓7   完美
+
+
+【2】：真机
+OPPO A92S     安卓12     完美
+
+
+
+
+
+
+*///判断是否有读取日历权限
+let has = $permit.hasReadCalendar();
+
+if (has) {
+    toast("有权限");
+} else {
+    toast("无权限");
+    $tip.show("获取权限","是否获取权限?",()=> {
+        //获取读取日历权限
+        $permit.readCalendar();
+    });
+}
+
+
+
+
+//测试记录:
+/*
+【1】：模拟器
+雷电    安卓9   完美
+雷电    安卓7   完美
+
+
+【2】：真机
+OPPO A92S     安卓12     完美
+
+
+
+
+
+
+*///判断是否有读取联系人权限
+let has = $permit.hasReadContact();
+
+if (has) {
+    toast("有权限");
+} else {
+    toast("无权限");
+    $tip.show("获取权限","是否获取权限?",()=> {
+        //获取读取联系人权限
+        $permit.readContact();
+    });
+}
+
+
+
+
+//测试记录:
+/*
+【1】：模拟器
+雷电    安卓9   完美
+雷电    安卓7   完美
+
+
+【2】：真机
+OPPO A92S     安卓12     完美
+
+
+
+
+
+
+*///判断是否有通话权限
+let has = $permit.hasCall();
+
+if (has) {
+    toast("有权限");
+} else {
+    toast("无权限");
+    $tip.show("获取权限","是否获取权限?",()=> {
+        //获取通话权限
+        $permit.call();
+    });
+}
+
+
+
+
+//测试记录:
+/*
+【1】：模拟器
+雷电    安卓9   完美
+雷电    安卓7   完美
+
+
+【2】：真机
+OPPO A92S     安卓12     完美
+
+
+
+
+
+
+*///生成二维码
+let img = $qr.make("Hello AIGame !", {
+    w: 500,//宽度(默认:500)
+    h: 500,//高度(默认:500)
+    margin: 2,//边距(默认:2)
+    foreColor: "#2AACB8",//前景色(默认:#000000)
+    bgColor: "#2B2D30",//背景色(默认:#FFFFFF)
+});
+
+if (img != null) {
+    //显示图片
+    img.show(); //或者调用 showImg(img); 全局函数也可也显示图片
+
+    //保存到本地
+    img.save("/sdcard/qr.png");
+}
+
+
+
+
+
+//..//生成二维码
+let img = $qr.make("欢迎来到AIGame!");
+
+//显示图片
+img.show();//或者调用 showImg(img); 全局函数也可也显示图片
+
+//保存到本地
+img.save("/sdcard/qr.png");//显示图片
+showImg("./ag-app-example/$qr - 二维码工具/imgs/t01.png");
+//解析这个二维码内容
+let content = $qr.parse("./ag-app-example/$qr - 二维码工具/imgs/t01.png");
+//显示内容
+alert("二维码内容",content);let path = "/sdcard/qr.png";
+if ($file.exists(path)) {
+    //显示图片
+    showImg(path);
+    //解析这个二维码内容
+    let content = $qr.parse(path);
+    //显示内容
+    alert("二维码内容",content);
+}else{
+    alert("本地图片","图片不存在:\n"+path);
+}//AIGame 官方示例
+
+//(1)创建资源对象(指定名称)
+let res = $res.create("我的资源");
+
+//(2)添加资源
+
+//1.存储一个字符串
+res.set("名字","张三");
+
+//2.存储一个对象
+res.set("对象", {
+    名字: "翠花",
+    年龄: 18,
+    身高: 175,
+    体重: 98,
+    儿子: {
+        名字: "小安",
+        年龄: 1,
+        身高: 45,
+    }
+});
+
+//3.存储一个列表
+res.set("列表",[1,2,3]);
+
+
+//(3)获取资源
+log(res.get("名字"));
+log(res.get("对象").名字);
+log(res.get("对象").年龄);
+log(res.get("对象").身高);
+log(res.get("对象").体重);
+log(res.get("对象").儿子.名字);
+log(res.get("对象").儿子.年龄);
+log(res.get("对象").儿子.身高);
+log(res.get("列表"));
+
+
+
+
+//示例结束//AIGame 官方示例
+
+//(1)创建资源对象(指定名称)
+let res = $res.create("我的资源");
+
+//(2)查询所有资源名称
+let resList = res.ls();
+
+log(resList);
+
+
+
+
+
+//示例结束//AIGame 官方示例
+
+//(1)加载资源对象(指定名称)
+let res = $res.create("我的资源");
+
+//(2)导出资源
+res.dump("sdcard/Pictures/示例/$res/资源.res");
+
+
+//示例结束//AIGame 官方示例
+
+//(1)加载资源对象(指定名称)
+let res = $res.create("我的资源");
+
+//(2)获得资源内容
+let content = res.cat();
+
+$tip.show("资源内容", content, null);
+
+
+//示例结束// AIGame官方示例
+
+
+//等待获取截屏权限
+$screen.getPermit();
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//如果没有无障碍权限，则会获取录屏权限
+if(!$screen.hasPermit()){
+    //阻塞方法:直到获取录屏权限为止，才会继续向下执行代码
+    $screen.getPermit();
+}
+
+//如果有无障碍则会优先使用无障碍截屏，否则就使用录屏权限截屏
+let img = $screen.getScreen();//获得屏幕截屏
+
+if(img!=null){
+    img.show();//显示截屏
+}
+
+
+// 示例结束// AIGame官方示例
+
+
+//设置屏幕亮度
+$screen.bright(100);
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//设置屏幕方向
+$screen.dir(0);//(强制)竖屏
+$screen.dir(90);//(强制)右转横屏
+$screen.dir(180);//(强制)倒置竖屏
+$screen.dir(270);//(强制)左转横屏
+$screen.dir(-1);//(不强制)自动旋转(任何其他数字都是自动旋转)
+
+// 模拟器测试：
+// 逍遥     安卓5  : 成功旋转屏幕 会闪退
+// 逍遥     安卓7  : 成功旋转屏幕 会闪退
+// 逍遥     安卓9  : 成功旋转屏幕 会闪退
+// 逍遥     安卓12 : 完美!!!
+// 雷电     安卓9  : 毫无反应
+
+//真机测试：
+// OPPO    安卓12 : 完美!!!
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+let w = $screen.getWidth();
+let h = $screen.getHeight();
+
+alert("屏幕宽高",w+"x"+h);
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+let w = $screen.getWidth();
+let h = $screen.getHeight();
+
+alert("屏幕宽高",w+"x"+h);
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+let info = $screen.getScreenInfo();
+
+$tip.show("详细信息",info.toString());
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+let density = $screen.getDensity();
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+if($screen.isScreenOff()){
+    toast("屏幕息屏");
+}
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+if($screen.isScreenOn()){
+    toast("屏幕亮屏");
+}
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//截屏并且保存
+let imgPath = "/sdcard/Pictures/截屏.png";
+$screen.save(imgPath);
+
+
+
+
+// 示例结束//示例开始
+
+let hasOpen = $sqlite.open("mData");
+if(hasOpen){
+    log("链接成功");
+}
+
+//示例结束//示例开始
+
+let hasTable = $sqlite.newTab("table1",["name","sex","age"]);
+if(hasTable){
+    log("建表成功");
+}
+
+//示例结束//示例开始
+
+//其实此函数等价于 $sqlite.exe("INSERT INTO table1 (name, sex, age) VALUES ('张三', '男', 20)");
+let hasAdd = $sqlite.add("table1",{
+    name:"张三",
+    sex:"男",
+    age:20
+});
+if(hasAdd){
+    log("添加成功");
+}
+
+//示例结束//示例开始
+
+let okUpdate = $sqlite.update("table1", {
+    name: "张三",
+    sex: "女",
+    age: 20
+},"name='张三'");
+if (okUpdate) {
+    log("更新成功");
+}
+
+//示例结束//示例开始
+
+//即使是报错也不会返回null，而是返回空列表，因此可以不用判断数据是否为空
+let result = $sqlite.ls("table1");
+for(let item of result){
+    log(item);
+}
+
+//示例结束//示例开始
+
+let hasDel = $sqlite.delTab("table1");
+if(hasDel){
+    log("删除表成功");
+}
+
+//示例结束//示例开始
+
+let okFinish = $sqlite.close();
+if(okFinish){
+    log("结束操作");
+}
+
+//示例结束//示例开始
+
+//无需打开数据库，直接就能删除数据库文件
+let hasDelDb = $sqlite.delDb("mData");
+if(hasDelDb){
+    log("删库成功");
+}
+
+//示例结束//示例开始
+
+//删除表
+$sqlite.exe("drop table if exists table1");
+
+
+
+//示例结束//官方示例
+
+let str = $str.random("abcdefghijk");
+
+alert("随机字符",str);
+
+
+
+
+
+
+//示例结束//官方示例
+
+let str = $str.random(["abc","defg","hijk","lmn","opq","rst"]);
+
+alert("随机字符列表",str);
+
+
+
+
+
+
+//示例结束//官方示例
+
+let str = $str.subStart("ABCDEFG",3);
+
+alert("截取开头",str);
+
+
+
+
+
+
+//示例结束//官方示例
+
+let str = $str.subEnd("ABCDEFG",3);
+
+alert("截取末尾",str);
+
+
+
+
+
+
+//示例结束//官方示例
+
+let str = $str.trim("   嗯？   ");
+
+alert("去除首尾空格",str);
+
+
+
+
+
+
+//示例结束// AIGame官方示例
+
+
+//获取修改系统设置权限
+$sys.getSetPermit();
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//获得电话权限
+if (!$sys.enableCall()) {
+    $sys.getCallPermit();
+}
+
+//拨打电话
+//$app.call("13593749477");
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//判断是否获得电话权限
+if ($sys.enableCall()) {
+    toast("拥有权限");
+}else{
+    toast("无电话权限");
+}
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//设置飞行模式
+$sys.airplane(true);
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//设置音量大小
+//注意：前面的英文字母可以只写前3位，比如：sys,rin,mus,ala,acc
+$sys.volume("system",100);//系统
+$sys.volume("ring",100);//铃声
+$sys.volume("music",100);//媒体
+$sys.volume("alarm",100);//闹钟
+$sys.volume("notification",100);//通知
+$sys.volume("call",100);//电话
+$sys.volume("dtmf",100);//双音多频(信号的音量流)
+$sys.volume("accessibility",100);//无障碍
+toast("音量已全部加满！");
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+let id = $sys.getDeviceId();
+
+alert("设备id",id);
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//判断是否有内容
+if($sys.hasClip()){
+    //获得内容
+    let content = $sys.getClip();
+
+    $tip.i(content);
+}
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+$sys.clearClip();
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//获得内容
+let content = $sys.getClip();
+alert("剪切板",content);
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//设置剪切板
+$sys.setClip("Hello AIGame !");
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//是否忽略电池优化
+let is = $sys.ignorePower("org.aigame.app");
+alert("是否忽略电池优化",is);
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//请求忽略电池优化
+$sys.requestIgnorePower("org.aigame.app");
+
+
+
+
+// 示例结束//AIGame 官方示例
+
+
+alert("当前任务路径",$task.getPath());
+
+
+
+//示例结束//AIGame 官方示例
+
+
+alert("相对路径",$task.getPath("./../../res"));
+
+
+
+//示例结束//AIGame 官方示例
+
+
+for (let i = 0; i < 10; i++) {
+    sleep(1000);
+    toast("我还活着");
+    if (i == 3) {
+        //每个脚本都会内置一个独属于自己的$task对象，代表当前脚本任务
+        $task.stop();
+    }
+}
+
+
+
+//示例结束//(1)创建可调节悬浮窗并且显示
+let ui = $floaty.newAdj(
+`
+<ui>
+    <linear dir="v" w="max">
+        <button id="bt1" text="暂停" w="max"/>
+        <button id="bt2" text="开始" w="max"/>
+        <button id="bt3" text="是否活着" w="max"/>
+    </linear>
+</ui>
+`);
+
+//(2)绑定事件
+ui.id("bt1").click(()=>{
+    $task.pause();//暂停脚本(原理是控制脚本引擎的解释执行)
+});
+ui.id("bt2").click(()=>{
+    $task.start();//继续执行(原理是控制脚本引擎的解释执行)
+});
+ui.id("bt3").click(()=>{
+    if($task.isRunning()){
+        info("我还活着");
+    }else{
+        info("我已经死了");
+    }
+});
+
+//当执行到这里的时候，上面的脚本都被执行了，所以可以正常的控制暂停和运行下面的代码
+//假设这是任务代码：
+for(let i = 0;i<20;i++){
+    sleep(1000);
+    info("正在运行"+i);
+}
+
+//当循环代码走完之后，当前任务就死了。所以点击按钮[是否活着]会提示"我已经死了"
+
+//AIGame 官方示例
+
+let t1 = $thread.create(()=> {
+    for (let i = 0; i < 10; i++) {
+        sleep("300");
+        log(t1.getName()+"==>"+i);
+    }
+    log(t1.getName()+"执行完毕");
+});
+
+let t2 = $thread.create(()=> {
+    for (let i = 0; i < 10; i++) {
+        sleep("300");
+        log(t2.getName()+"==>"+i);
+    }
+    log(t1.getName()+"执行完毕");
+});
+
+let t3 = $thread.create(()=> {
+    for (let i = 0; i < 10; i++) {
+        sleep("300");
+        log(t3.getName()+"==>"+i);
+    }
+    log(t1.getName()+"执行完毕");
+});
+
+
+
+t1.start();
+t2.start();
+t3.start();
+
+
+
+//示例结束//AIGame 官方示例
+
+//执行完这个脚本后再执行[02.停止循环任务.js]可见效果
+
+let t1 = $thread.loop("循环1号",()=>{
+    sleep(1000);
+    log("我还活着！");
+});
+
+
+t1.start();
+
+
+
+
+//示例结束//AIGame 官方示例
+
+//关闭循环器
+$thread.stopLoop("循环1号");
+//或者直接停止全部
+//$thread.stopAllLoop();
+
+
+
+//示例结束// AIGame官方示例
+
+
+$tip.i("我是信息");
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//解析xml并且获得ui对象
+let ui = $ui.layout("ag-app-example/$tip - 阻塞式对话框/01.自定义对话框/ui.xml");
+//通过ui对象拿到View对象
+let view = ui.getView();
+
+
+
+//通过tip显示这个view
+$tip.show("自定义对话框", view, ()=> {
+    toast("保存成功");
+});
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//解析xml并且获得ui对象
+let ui = $ui.layout("ag-app-example/$tip - 阻塞式对话框/01.自定义对话框/ui.xml");
+//通过ui对象拿到View对象
+let view = ui.getView();
+
+
+//这种方式不会显示底部的按钮
+$tip.show("自定义对话框", view);
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+$tip.v("我是信息");
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+$tip.w("我是信息");
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+$tip.e("我是信息");
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+$tip.d("我是信息");
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+$tip.input("请输入你的名字",(value)=> {
+    toast("输入的内容:"+value);
+});
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+$tip.input("请输入你的名字","张三",(value)=> {
+    toast("输入的内容:"+value);
+});
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+$tip.show("你好新人","我是你的AIGame助手");
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+$tip.show("你好新人","我是你的AIGame助手",()=> {
+    toast("你好!");
+});
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//解析xml并且获得ui对象
+let ui = $ui.layout("ag-app-example/$tip - 阻塞式对话框/01.自定义对话框/ui.xml");
+//通过ui对象拿到View对象
+let view = ui.getView();
+
+
+//这种方式不会显示底部的按钮
+$tip.show("自定义对话框", view);
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+//解析xml并且获得ui对象
+let ui = $ui.layout("ag-app-example/$tip - 阻塞式对话框/01.自定义对话框/ui.xml");
+//通过ui对象拿到View对象
+let view = ui.getView();
+
+
+
+//通过tip显示这个view
+$tip.show("自定义对话框", view, ()=> {
+    toast("保存成功");
+});
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+let arr = ["小狗","小猫","小猪"];
+
+$tip.one("请选择",arr,(value)=> {
+    toast("你选择了:"+value);
+});
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+let arr = ["小狗","小猫","小猪"];
+
+$tip.more("请选择",arr,(values)=> {
+    toast("你选择了:"+values);
+});
+
+
+
+
+// 示例结束//AIGame 官方示例
+
+
+//选择日期
+$tip.calendar((info)=> {
+    //此回调处于第三方线程
+    log(info); //用log打印具体的元素
+    //常用调用：
+    let year = info.year; //年
+    let month = info.month; //月
+    let day = info.day; //日
+    //或者：
+    year = info.y; //年
+    month = info.m; //月
+    day = info.d; //日
+    //显示日期
+    alert("日期",year+"-"+month+"-"+day);
+});
+
+
+
+
+//示例结束//AIGame 官方示例
+
+
+//选择日期
+$tip.date((info)=> {
+    //此回调处于第三方线程
+    log(info); //用log打印具体的元素
+    //常用调用：
+    let year = info.year; //年
+    let month = info.month; //月
+    let day = info.day; //日
+    //或者：
+    year = info.y; //年
+    month = info.m; //月
+    day = info.d; //日
+    //显示日期
+    alert("日期",year+"-"+month+"-"+day);
+});
+
+
+
+
+//示例结束//AIGame 官方示例
+
+
+//24小时制:选择时间对话框
+$tip.clock((info)=> {
+    //此回调处于第三方线程
+    log(info); //用log打印具体的元素
+    //常用调用：
+    let hour = info.hour; //时
+    let minute = info.minute; //分
+    //或者：
+    hour = info.h; //时
+    minute = info.m; //分
+    //显示时间
+    alert("时间",hour+":"+minute);
+});
+
+
+
+
+//示例结束//AIGame 官方示例
+
+
+//24小时制:选择时间对话框
+$tip.time((info)=> {
+    //此回调处于第三方线程
+    log(info); //用log打印具体的元素
+    //常用调用：
+    let hour = info.hour; //时
+    let minute = info.minute; //分
+    //或者：
+    hour = info.h; //时
+    minute = info.m; //分
+    //显示时间
+    alert("时间",hour+":"+minute);
+});
+
+
+
+
+//示例结束//官方示例
+
+//第一次执行大概需要4秒，第二次瞬间就能执行触摸操作
+if($touch.hasPermit()){
+    $touch.init();
+}
+
+$touch.click(410,350);
+
+
+
+//示例结束//官方示例
+
+//第一次执行大概需要4秒，第二次瞬间就能执行触摸操作
+if($touch.hasPermit()){
+    $touch.init();
+}
+
+$touch.press(410,350);
+
+
+
+//示例结束//官方示例
+
+//第一次执行大概需要4秒，第二次瞬间就能执行触摸操作
+if($touch.hasPermit()){
+    $touch.init();
+}
+
+$touch.move(400,0,400,500);
+
+
+
+//示例结束// AIGame官方示例
+
+
+let options = {
+    rate: 1,//速度
+    pitch: 1,//音调
+    volume: 1,//音量
+    language: "zh",//语言
+    streamType: "system"//播放流('system'播放声音最大)
+}
+
+
+$tts.read("你好呀，早安~",options);
+
+
+
+
+// 示例结束// AIGame官方示例
+
+
+$tts.read("你好呀，早安~");
+
+
+
+
+// 示例结束let ui = $ui.layout("ag-app-example/$ui - 交互界面/01.appbar-应用条/ui.xml");
+
+let mAppbar = ui.id("mAppbar");
+
+if(mAppbar!=null){
+    mAppbar.back((view) => {
+        ui.finish();
+    });
+}
+
+
+ui.show();
+alert("注意","开始运行后,我会在10秒内添加9个卡片,最后1秒删除所有卡片");
+
+//解析一个可以滑动的界面
+let mainUi = $ui.layout(`
+<ui>
+    <statusbar/>
+    <nested w="max">
+        <linear w="max" id="mLayout" />
+    </nested>
+</ui>
+`);
+let mLayout = mainUi.id("mLayout");
+
+$thread.create(()=> {
+    for (let i = 0; i < 10; i ++) {
+        sleep(1000);
+        //由于我们需要动态的添加布局,所以每次都必须使用layout重新解析生成新的布局
+        //因为view被添加后,已经归属于父容器了,就不允许添加到其他容器,因此view不能被重复使用(安卓机制)
+        //所以需要重新使用layout解析生成新的布局
+        let itemUi = $ui.layout(`
+            <ui>
+                <card w="max" id="mCard" margin="3">
+                    <text text="我是卡片" margin="15" />
+                </card>
+            </ui>
+            `);
+        let card = itemUi.id("mCard");
+        //[核心方法]直接在第三方线程操作view,因为已经封装好了,不需要手动调用ui线程操作view
+        mLayout.addView(card);
+    }
+    //[核心方法]最后移除所有元素
+    mLayout.removeAll();
+    alert("结束","执行结束了");
+    mainUi.finish();
+}).start();
+
+
+
+mainUi.show();let ui = $ui.layout("ag-app-example/$ui - 交互界面/02.button-按钮/ui.xml");
+
+let mAppbar = ui.id("mAppbar");
+
+if(mAppbar!=null){
+    mAppbar.back((view) => {
+        ui.finish();
+    });
+}
+
+
+ui.show();let ui = $ui.layout("ag-app-example/$ui - 交互界面/03.button-group-按钮组/ui.xml");
+
+let mAppbar = ui.id("mAppbar");
+
+if(mAppbar!=null){
+    mAppbar.back((view) => {
+        ui.finish();
+    });
+}
+
+
+ui.show();
+let ui = $ui.layout("ag-app-example/$ui - 交互界面/04.card-卡片/ui.xml");
+
+let mAppbar = ui.id("mAppbar");
+
+if(mAppbar!=null){
+    mAppbar.back((view) => {
+        ui.finish();
+    });
+}
+
+
+ui.show();let ui = $ui.layout("ag-app-example/$ui - 交互界面/05.check-多选框/ui.xml");
+
+let mAppbar = ui.id("mAppbar");
+
+if(mAppbar!=null){
+    mAppbar.back((view) => {
+        ui.finish();
+    });
+}
+
+
+ui.show();let ui = $ui.layout("ag-app-example/$ui - 交互界面/06.chip-group-小片组/ui.xml");
+
+let mAppbar = ui.id("mAppbar");
+
+if(mAppbar!=null){
+    mAppbar.back((view) => {
+        ui.finish();
+    });
+}
+
+
+ui.show();let ui = $ui.layout("ag-app-example/$ui - 交互界面/06.chip-小片/ui.xml");
+
+let mAppbar = ui.id("mAppbar");
+
+if(mAppbar!=null){
+    mAppbar.back((view) => {
+        ui.finish();
+    });
+}
+
+
+ui.show();let ui = $ui.layout("ag-app-example/$ui - 交互界面/07.drop-下拉框/ui.xml");
+
+let mAppbar = ui.id("mAppbar");
+
+if(mAppbar!=null){
+    mAppbar.back((view) => {
+        ui.finish();
+    });
+}
+
+
+ui.show();let ui = $ui.layout("ag-app-example/$ui - 交互界面/08.edit-编辑器/ui.xml");
+
+let mAppbar = ui.id("mAppbar");
+
+if(mAppbar!=null){
+    mAppbar.back((view) => {
+        ui.finish();
+    });
+}
+
+
+ui.show();let ui = $ui.layout("ag-app-example/$ui - 交互界面/09.fab-悬浮按钮/ui.xml");
+
+let mAppbar = ui.id("mAppbar");
+
+if(mAppbar!=null){
+    mAppbar.back((view) => {
+        ui.finish();
+    });
+}
+
+
+ui.show();let ui = $ui.layout("ag-app-example/$ui - 交互界面/10.hr-分割线/ui.xml");
+
+let mAppbar = ui.id("mAppbar");
+
+if(mAppbar!=null){
+    mAppbar.back((view) => {
+        ui.finish();
+    });
+}
+
+
+ui.show();let ui = $ui.layout("ag-app-example/$ui - 交互界面/11.img-图片/ui.xml");
+
+let mAppbar = ui.id("mAppbar");
+
+if(mAppbar!=null){
+    mAppbar.back((view) => {
+        ui.finish();
+    });
+}
+
+
+ui.show();let ui = $ui.layout("ag-app-example/$ui - 交互界面/12.input-输入框/ui.xml");
+
+let mAppbar = ui.id("mAppbar");
+
+if(mAppbar!=null){
+    mAppbar.back((view) => {
+        ui.finish();
+    });
+}
+
+
+ui.show();//解析布局获得ui对象
+let ui = $ui.layout("ag-app-example/$ui - 交互界面/13.ls-列表/ui.xml");
+//返回按钮
+ui.id("mAppbar").back(()=> {
+    ui.finish();
+});
+//显示界面
+ui.show();
+
+//获取列表控件
+let ls = ui.id("mLs");
+//设置绑定数据(优先调用)
+ls.bindHolder((holder,data,position)=> {
+    //适配器会不断的创建layout标签中的视图放在holder中
+    let tv = holder.id("mText");
+    //data就是通过ls.flush传入进来的数组元素
+    tv.setText(data);
+
+    //[删除按钮]
+    holder.id("delBut").click(()=> {
+        $tip.show("删除","确定删除："+data+"吗?",()=> {
+            //删除指定下标的元素
+            ls.del(position);
+        });
+    });
+
+    //[修改按钮]
+    holder.id("edtBut").click(()=> {
+        $tip.input("修改名称",data,(value)=> {
+            //修改指定下标的元素
+            ls.flush(value,position);
+        });
+    });
+});
+//设置一些基础的元素
+ls.flush(["张三","李四","王五"]);
+
+//获取按钮(点击就添加一个元素进去)
+let i = 0;
+ui.id("mAppbar").menu((title)=> {
+    if (title == "添加元素") {
+        i++;
+        //列表添加一个数据
+        ls.add("数据"+i);//还有一个函数 ls.add("数据",1); 添加到指定的位置中
+        //列表滚动到最底部
+        ls.scrollBottom();//还有函数 scrollTop() 滚动到顶部 scroll(index) 滚动到指定位置
+    }
+});
+
+
+
+//..let ui = $ui.layout("ag-app-example/$ui - 交互界面/14.nav-导航栏/ui.xml");
+
+let mAppbar = ui.id("mAppbar");
+
+if(mAppbar!=null){
+    mAppbar.back((view) => {
+        ui.finish();
+    });
+}
+
+
+ui.show();let ui = $ui.layout("ag-app-example/$ui - 交互界面/15.pager-滑动页面/ui.xml");
+
+let mAppbar = ui.id("mAppbar");
+
+if(mAppbar!=null){
+    mAppbar.back((view) => {
+        ui.finish();
+    });
+}
+
+//滑动页面(pager)与标签(tab)联动
+let mPager = ui.id("mPager");
+let mTab = ui.id("mTab");
+if(mPager!=null&&mTab!=null){
+    mPager.bind(mTab);
+}
+
+ui.show();let ui = $ui.layout("ag-app-example/$ui - 交互界面/16.progress-进度条/ui.xml");
+
+let mAppbar = ui.id("mAppbar");
+
+if(mAppbar!=null){
+    mAppbar.back((view) => {
+        ui.finish();
+    });
+}
+
+
+ui.show();let ui = $ui.layout("ag-app-example/$ui - 交互界面/17.radio-单选按钮/ui.xml");
+
+let mAppbar = ui.id("mAppbar");
+
+if(mAppbar!=null){
+    mAppbar.back((view) => {
+        ui.finish();
+    });
+}
+
+
+ui.show();let ui = $ui.layout("ag-app-example/$ui - 交互界面/18.radio-group-单选按钮组/ui.xml");
+
+let mAppbar = ui.id("mAppbar");
+
+if(mAppbar!=null){
+    mAppbar.back((view) => {
+        ui.finish();
+    });
+}
+
+
+ui.show();let ui = $ui.layout("ag-app-example/$ui - 交互界面/19.rail-轨道工具栏/ui.xml");
+
+let mAppbar = ui.id("mAppbar");
+
+if(mAppbar!=null){
+    mAppbar.back((view) => {
+        ui.finish();
+    });
+}
+
+
+ui.show();let ui = $ui.layout("ag-app-example/$ui - 交互界面/20.range-范围条/ui.xml");
+
+let mAppbar = ui.id("mAppbar");
+
+if(mAppbar!=null){
+    mAppbar.back((view) => {
+        ui.finish();
+    });
+}
+
+
+ui.show();let ui = $ui.layout("ag-app-example/$ui - 交互界面/21.slider-拖拽条/ui.xml");
+
+let mAppbar = ui.id("mAppbar");
+
+if(mAppbar!=null){
+    mAppbar.back((view) => {
+        ui.finish();
+    });
+}
+
+
+ui.show();let ui = $ui.layout("ag-app-example/$ui - 交互界面/22.statusbar-状态栏/ui.xml");
+
+let mAppbar = ui.id("mAppbar");
+
+if(mAppbar!=null){
+    mAppbar.back((view) => {
+        ui.finish();
+    });
+}
+
+
+ui.show();let ui = $ui.layout("ag-app-example/$ui - 交互界面/23.switch-开关/ui.xml");
+
+let mAppbar = ui.id("mAppbar");
+
+if(mAppbar!=null){
+    mAppbar.back((view) => {
+        ui.finish();
+    });
+}
+
+
+ui.show();let ui = $ui.layout("ag-app-example/$ui - 交互界面/25.toolbar-工具栏/ui.xml");
+
+let mAppbar = ui.id("mAppbar");
+
+if(mAppbar!=null){
+    mAppbar.back((view) => {
+        ui.finish();
+    });
+}
+
+
+ui.show();let ui = $ui.layout("ag-app-example/$ui - 交互界面/25.toolbar-工具栏/ui.xml");
+
+let mAppbar = ui.id("mAppbar");
+
+if(mAppbar!=null){
+    mAppbar.back((view) => {
+        ui.finish();
+    });
+}
+
+
+ui.show();let ui = $ui.layout("ag-app-example/$ui - 交互界面/26.webview-网页控件/ui.xml");
+
+let mAppbar = ui.id("mAppbar");
+
+if(mAppbar!=null){
+    mAppbar.back((view) => {
+        ui.finish();
+    });
+}
+
+
+ui.show();let ui = $ui.layout("ag-app-example/$ui - 交互界面/27.log-日志显示控件/ui.xml");
+
+let mAppbar = ui.id("mAppbar");
+
+if(mAppbar!=null){
+    mAppbar.back((view) => {
+        ui.finish();
+    });
+}
+
+
+ui.show();let ui = $ui.layout("ag-app-example/$ui - 交互界面/28.video-视频/ui.xml");
+
+let mAppbar = ui.id("mAppbar");
+
+if(mAppbar!=null){
+    mAppbar.back((view) => {
+        ui.finish();
+    });
+}
+
+
+ui.show();//AIGame 官方示例
+
+//返回的ws是经过封装的WebSocket对象(不是okhttp3.WebSocket原生对象)
+let ws = $ws.create("wss://echo.websocket.org");
+
+//设置监听
+ws.onOpen((res,ws)=> {
+    //当成功连接时回调(此函数可以不用设置，拥有默认回调:打印信息)
+    console.log("链接成功");
+    //参数说明：
+    // res: okhttp3.Response (参考okhttp3文档)
+    // ws: okhttp3.WebSocket (参考okhttp3文档)
+})
+.onClosed((code,reason,ws)=> {
+    //当关闭后回调(此函数可以不用设置，拥有默认回调:打印信息)
+    console.log("关闭成功");
+    //参数说明：
+    // code:   int    数字
+    // reason: String 字符串
+    // ws: okhttp3.WebSocket (参考okhttp3文档)
+})
+.onClosing((code,reason,ws)=> {
+    //处于关闭时回调(此函数可以不用设置，拥有默认回调:打印信息)
+    console.log("正在关闭");
+    //参数说明：
+    // code:   int    数字
+    // reason: String 字符串
+    // ws: okhttp3.WebSocket (参考okhttp3文档)
+})
+.onFail((err,res,ws)=> {
+    //出现异常时回调(此函数可以不用设置，拥有默认回调:打印信息)
+    console.log("出现异常",err);
+    //参数说明：
+    // err: Throwable
+    // res: okhttp3.Response (参考okhttp3文档)
+    // ws: okhttp3.WebSocket (参考okhttp3文档)
+})
+.onMsgStr((str, ws)=> {
+    //接收到字符串信息时回调
+    console.log("收到字符串：",str);
+    //参数说明：
+    // str: String 字符串数据
+    // ws: okhttp3.WebSocket (参考okhttp3文档)
+})
+.onMsgByte((bs)=> {
+    //接收到字节数据时回调
+    console.log("收到二进制消息：大小 ", bs.size());
+    console.log("hex: ", bs.hex());
+    console.log("base64: ", bs.base64());
+    console.log("md5: ", bs.md5());
+    console.log("bytes: ", bs.toByteArray());
+    //参数说明：
+    // bs: okio.ByteString (参考okhttp3文档)
+});
+
+//发送字符串消息
+ws.send("Hello AIGame!");
+
+//发送二进制消息
+//ws.send([10,15,1,1,0,5]);
+
+
+
+//示例结束//官方示例
+
+//停止1秒钟
+sleep(1000);
+
+
+
+
+
+
+
+//示例结束//官方示例
+
+
+
+toast("我是土司");
+
+
+
+
+
+
+//示例结束//官方示例
+
+
+
+tip("我是提示");
+
+
+
+
+
+
+//示例结束//官方示例
+
+
+alert("提示对话框","我很好");
+
+
+
+//示例结束//官方示例
+
+//【方式一】显示图片路径上的图片
+showImg("ag-app-example/全局函数/t01.png");
+
+//【方式二】显示图片对象(Image)
+let imgPath = "ag-app-example/全局函数/t01.png";
+let img = $img.read(imgPath);//获取(Image)图片对象
+showImg(img);//显示图片对象(Image)
+
+
+
+//示例结束//官方示例
+
+
+setClip("设置的内容");
+
+if(hasClip()){
+    let clip = getClip();
+    alert("剪切板内容",clip);
+}
+
+//清空剪切板
+clearClip();
+
+//示例结束//官方示例
+
+
+let num1 = random();//0-1之间的随机数
+alert("随机数(0-1)",num1);
+
+let num2 = random(10);//0-10之间的随机数(不包含10)
+alert("随机数(0-10)",num2);
+
+let num3 = random(10,30);//0-10之间的随机数
+alert("随机数(10-30)",num3);
+
+
+//示例结束//官方示例
+
+
+//本质上是一个悬浮窗提示土司
+info("我是土司");
+
+
+//示例结束//AIGame官方示例
+
+//注意：本示例并不完善，只用于参考和学习
+
+let hasAccessibilityPermis = require("ag-app-example/拓展示例/01.授权无障碍/根据包名判断是否有无障碍.js");
+let getAccessibilityServiceClassName = require("ag-app-example/拓展示例/01.授权无障碍/根据包名获取无障碍类名.js");
+
+//解析界面并且显示
+let ui = $ui.layout("ag-app-example/拓展示例/01.授权无障碍/ui.xml");
+ui.show();
+ui.id("mAppbar").back(()=> {
+    ui.finish();
+});
+ui.id("mAppbar").menu((title)=> {
+    if(title=="帮助"){
+        alert("帮助","你需要先获取Shizuku的授权，之后就可以给其他应用授权无障碍服务了");
+    }
+});
+
+//获取列表控件
+let ls = ui.id("mLs");
+
+//刷新列表中的应用信息数据
+let flushList = function() {
+    //获取应用列表信息
+    let allAppList = $app.lsUserApp(); //所有的应用：但是不是所有的应用都需要无障碍
+    let newAppList = [];
+    for (let info of allAppList) {
+        let clsName = getAccessibilityServiceClassName(info.pkgName);
+        if (clsName == null || clsName.trim().isEmpty()) {
+            //无障碍类名为空说明这个app就不需要获取无障碍权限
+            continue;
+        }
+        newAppList.push(info);
+    }
+    //刷新列表数据：只显示需要无障碍授权的应用
+    ls.flush(newAppList);
+}
+
+
+//绑定视图解析
+ls.bindHolder((holder,data,position)=> {
+    holder.id("appName").setText(data.appName);
+    holder.id("pkgName").setText(data.pkgName);
+    holder.id("appIcon").setImg(data.icon.getBitmap());
+    //设置图标放在子线程中
+//    $thread.run(()=>{
+//        let iconImg = $app.getIcon(data.pkgName);
+//        if(iconImg!=null){
+//            holder.id("appIcon").setImg(iconImg.getBitmap());
+//        }
+//    });
+
+    let permitStatus = holder.id("permitStatus");
+    if (hasAccessibilityPermis(data.pkgName)) {
+        permitStatus.setText("已授权");
+        permitStatus.setColor("#3574F0");
+    } else {
+        permitStatus.setText("未授权");
+        permitStatus.setColor("#FF0000");
+    }
+    holder.id("card").click(()=> {
+        //点击后开始给当前应用进行授权
+        if ($szk.hasPermit()) {
+            let clsName = getAccessibilityServiceClassName(data.pkgName);
+            if (clsName == null || clsName.trim().isEmpty()) {
+                toast("当前应用无需无障碍权限");
+            } else {
+                $tip.show(data.appName,"点击确定开始为应用授权无障碍权限：\n\n应用:"+data.appName+"\n包名:"+data.pkgName+"\n类名:\n"+clsName,()=> {
+                    $szk.exe("settings put secure enabled_accessibility_services "+data.pkgName+"/"+clsName,(info)=> {
+                        $log.d(info);
+                    },(err)=> {
+                        $log.e(err);
+                    },(result)=> {
+                        holder.id("permitStatus").snack("正在授权...");
+                        //如果result为null一般就说明当前命令执行成功，没有任何异常信息产生
+                        log(result);
+                        if (result == null || result == "null") {
+                            log("执行成功");
+                        }
+                        sleep(3000); //该命令执行后未必马上生效，所以3秒后刷新一下列表
+                        holder.id("permitStatus").snack("授权完毕");
+                        flushList(); //刷新列表
+                    });
+                });
+            }
+        } else {
+            alert("无Shizuku授权","请先用Shizuku为本app授权");
+        }
+    });
+});
+
+
+
+//界面显示后自动刷新一下列表
+flushList();
+
+//下拉刷新控件
+ui.id("mFlush").flush(()=> {
+    flushList();
+});
+
+
+//结束示例//AIGame官方示例
+
+//这个示例很好的展现了脚本与安卓API的交互，你可以实现任何你想实现的功能
+
+//这里就是与java交互的代码：新版本中，直接定义即可：
+var Settings = android.provider.Settings;
+var TextUtils = android.text.TextUtils;
+
+
+let hasAccessibilityPermis = function(pkgName) {
+    let accessibilityEnabled = 0;
+    let packageName = pkgName.toUpperCase();
+    let contentResolver = context.getContentResolver();
+    try {
+        accessibilityEnabled = Settings.Secure.getInt(contentResolver, Settings.Secure.ACCESSIBILITY_ENABLED);
+    } catch (err) {
+        //系统不支持无障碍服务
+        return false;
+    }
+    let splitter = new TextUtils.SimpleStringSplitter(':');
+    if (accessibilityEnabled == 1) {
+        let settingValue = Settings.Secure.getString(contentResolver, Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
+        if (settingValue != null) {
+            splitter.setString(settingValue);
+            while (splitter.hasNext()) {
+                let acServiceName = splitter.next().toUpperCase();
+                if (acServiceName.contains(packageName)) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+
+
+//测试一下：应用"org.aigame.pro"是否获取了无障碍权限
+//alert("类名",hasAccessibilityPermis("org.aigame.pro"));
+
+
+
+
+//导出这个函数
+hasAccessibilityPermis;
+
+
+
+//示例结束//AIGame官方示例
+
+//这个示例很好的展现了脚本与安卓API的交互，你可以实现任何你想实现的功能
+
+//这里就是与java交互的代码：新版本中，不再使用任何关键字或者方法属性来导入包，而是直接定义即可：
+var PackageInfo = android.content.pm.PackageInfo;
+var PackageManager = android.content.pm.PackageManager;
+var PackageInfo = android.content.pm.ServiceInfo;
+var AccessibilityService = android.accessibilityservice.AccessibilityService;
+var Intent = android.content.Intent;
+
+// 判断ServiceInfo是否为无障碍服务
+let isAccessibilityService = function(serviceInfo) {
+    // 方法1：检查服务权限
+    if (serviceInfo.permission != null && serviceInfo.permission.equals("android.permission.BIND_ACCESSIBILITY_SERVICE")) {
+        return true;
+    }
+    // 方法2：使用 GET_RESOLVED_FILTER 标志获取 intent filter
+    let intent = new Intent(AccessibilityService.SERVICE_INTERFACE);
+    let resolveInfoList = context.getPackageManager().queryIntentServices(intent, PackageManager.GET_RESOLVED_FILTER);
+    for (let resolveInfo of resolveInfoList) {
+        if (resolveInfo.serviceInfo.name.equals(serviceInfo.name) && resolveInfo.serviceInfo.packageName.equals(serviceInfo.packageName)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+// 获取应用的无障碍服务类名列表
+let getAccessibilityServiceClass = function(packageName) {
+    // 获取应用服务信息（包含无障碍服务）
+    let packageInfo = context.getPackageManager().getPackageInfo(packageName, PackageManager.GET_SERVICES | PackageManager.GET_META_DATA);
+    if (packageInfo.services != null) {
+        for (let service of packageInfo.services) {
+            // 通过权限和 intent-filter 判断是否为无障碍服务
+            if (isAccessibilityService(service)) {
+                return service.name;
+            }
+        }
+    }
+    return null;
+}
+
+//测试一下：获取包名为"org.aigame.pro"的无障碍类名
+//alert("类名",getAccessibilityServiceClass("org.aigame.pro"));
+
+
+
+
+//导出这个函数
+getAccessibilityServiceClass;
+
+
+
+
+
+//示例结束//AIGame官方示例
+
+//注意：本示例并不完善，只用于参考和学习
+//本实例主要用来教学AppInfo的原生交互
+//具体在代码的40行左右位置
+
+//解析界面并且显示
+let ui = $ui.layout("ag-app-example/拓展示例/02.备份应用/ui.xml");
+ui.show();
+ui.id("mAppbar").back(()=> {
+    ui.finish();
+});
+ui.id("mAppbar").menu((title)=> {
+    if(title=="帮助"){
+        alert("帮助","本示例教学如何使用AppInfo的原生交互来实现备份应用的功能,具体在代码的40行左右位置");
+    }
+});
+
+//获取列表控件
+let ls = ui.id("mLs");
+
+//刷新列表中的应用信息数据
+let flushList = function() {
+    //获取应用列表信息
+    let appList = $app.lsUserApp(); //获取用户应用：而不是系统应用
+    ls.flush(appList); //每个元素的对象都是AppInfo类型的，参考文档{AppInfo}
+}
+
+
+//绑定视图解析
+ls.bindHolder((holder,data,position)=> {
+    holder.id("appName").setText(data.appName);
+    holder.id("pkgName").setText(data.pkgName);
+    //data本身就是AppInfo对象，参考文档{AppInfo}我们发现它存在icon属性
+    //icon属性的类型是Image，参考文档{Image}它可以获取Bitmap对象
+    holder.id("appIcon").setImg(data.icon.getBitmap());
+    holder.id("card").click((view)=> {
+        //点击后开始给当前应用进行备份
+        $tip.input("备份路径","/sdcard/Pictures/"+data.appName+".apk",(value)=>{
+            //接下来就涉及到原生交互了
+            //我们通过AppInfo的info属性拿到：{ApplicationInfo}对象(android.content.pm.ApplicationInfo)
+            let applicationInfo = data.info;
+            //在安卓中{ApplicationInfo}有属性sourceDir可以获得apk的安装位置
+            let apkPath = applicationInfo.sourceDir;
+            log("Apk安装位置："+apkPath);
+            //我们把这个路径下的apk拷贝到输入的路径下面就行了
+            $file.copy(apkPath,value);
+            holder.id("card").snack("拷贝完成!");
+        });
+    });
+});
+
+
+
+//界面显示后自动刷新一下列表
+flushList();
+
+//下拉刷新控件
+ui.id("mFlush").flush(()=> {
+    flushList();
+});
+
+
+//结束示例let ui = $ui.layout("ag-app-example/拓展示例/03.DeepSeek对话/xml/main.xml");
+ui.show(); //显示界面
+
+//[存储]
+let storage = $storage.create("org.aigame.demo.deepseek");
+
+//[组件]
+let mAppbar = ui.id("mAppbar"); //应用条
+let nested = ui.id("nested"); //显示对话内容的
+let layout = ui.id("layout"); //显示对话内容的
+
+mAppbar.back(()=> {
+    ui.finish();
+});
+
+mAppbar.menu((title)=> {
+    if (title == "清除") {
+        $tip.show("清除对话","确认清空对话内容吗？",()=> {
+            //清空所有布局
+            layout.removeAll();
+        });
+    }
+    if (title == "设置") {
+        $tip.input("Api Key",(value)=> {
+            if ($str.isEmpty(value)) {
+                toast("不允许输入空值");
+                return;
+            }
+            storage.put("apiKey",value);
+        });
+    }
+});
+
+
+//(1)创建deepseek对话视图
+let createDsView = function(content) {
+    let ui = $ui.layout("ag-app-example/拓展示例/03.DeepSeek对话/xml/DeepSeek.xml");
+    ui.id("content").setText(content);
+    return {
+        ui: ui,
+        view: ui.getView()
+    };
+}
+
+//(2)创建我的对话视图
+let createMwView = function(content) {
+    let ui = $ui.layout("ag-app-example/拓展示例/03.DeepSeek对话/xml/Mine.xml");
+    ui.id("content").setText(content);
+    return ui.getView();
+}
+
+//(3)请求调用
+let requireContent = function(apiKey,content) {
+    let res = $http.post({
+        url: "https://api.deepseek.com/chat/completions",
+        readTimeout: 60,//deepseek响应有时候会很慢，如果超时了，就设置这个
+        head: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer "+apiKey,//输入ApiKey
+        },
+        data: {
+            model: "deepseek-chat",
+            messages: [{
+                role: "system",
+                content: "你是一个智能生活助手"
+            },
+                {
+                    role: "user",
+                    //我的对话内容：
+                    content: content
+                }],
+            stream: false
+        }
+    });
+
+    //解析json内容
+    let data = res.json();
+
+    return data.choices[0].message.content;
+}
+
+//(4)滑动NestedScrollView到最底部
+let scrollBottom = function() {
+    //通过安卓原生类的post函数，可以直接发送一条ui线程事件(确保视图刷新后在ui线程中调用)
+    layout.getView().post(()=> {
+        let nestedScrollView = nested.getView(); //获取原生对象
+        //要滑动到的高度
+        let toH = layout.getH();
+        //开始滑动
+        nestedScrollView.smoothScrollTo(0,toH);
+        //调用安卓原生类{NestedScrollView}的smoothScrollTo方法(请参考安卓api)
+    });
+}
+
+
+//输入内容
+ui.id("input").click((view)=> {
+    //判断ApiKey是否是空的
+    let apiKey = storage.get("apiKey","");
+    if ($str.isEmpty(apiKey)) {
+        alert("ApiKey为空","请前往DeepSeek官网申请ApiKey后，点击右上角设置图标，配置ApiKey内容。\n类似于：sk-c4c165374f72bbf90f6326f 这样的字符串");
+        return null;
+    }
+    $tip.input("输入内容",(value)=> {
+        if ($str.isEmpty(value)) {
+            return null;
+        }
+        //创建我的对话视图
+        layout.addView(createMwView(value));
+        //创建deepseek对话视图
+        let dsView = createDsView("正在思考...");
+        layout.addView(dsView.view);
+        //网络请求不允许在ui线程中进行，于是就用线程
+        $thread.run(()=> {
+            //调用请求
+            let answer = requireContent(apiKey,value);
+            //设置回答
+            dsView.ui.id("content").setText(answer);
+            //滑动到底部
+            scrollBottom();
+        });
+    });
+});
+
+
+
+
+
+//..//写一个函数
+let add = function(a,b){
+    return a+b
+}
+//导出函数
+add;//不要写成"add()"了这个是调用函数let mFunc = require("ag-app-example/模块开发/01.函数模块/模块代码.js");
+
+//执行函数
+alert("函数模块","结果："+mFunc(1, 2));//写一个对象
+let obj = {
+    name:"张三",
+    age:18,
+    sex:"男"
+}
+
+//导出对象
+obj;let mObj = require("ag-app-example/模块开发/02.对象模块/模块代码.js");
+
+//使用对象
+alert("对象模块",mObj.name+"\n"+mObj.age+"\n"+mObj.sex);function MyClass(){
+    this.name = "张三";
+    this.age = 18;
+
+    this.show = function(){
+        alert("我的信息",this.name+"\n"+this.age);
+    }
+}
+
+MyClass;//导出类let mClass = require("ag-app-example/模块开发/03.类模块/模块代码.js");
+
+//使用这个类:创建对象
+let m = new mClass();
+//调用类的show方法
+m.show();// var声明（函数作用域）
+var globalVar = "我是全局变量";
+function testVar() {
+    var funcVar = "我是函数内变量";
+    console.log("函数内var变量:", funcVar); // 输出: 函数内var变量: 我是函数内变量
+}
+testVar();
+console.log("全局var变量:", globalVar); // 输出: 全局var变量: 我是全局变量
+
+// let声明（块级作用域）
+let blockLet = "块外let变量";
+if (true) {
+    let blockLet = "块内let变量";
+    console.log("块内let变量:", blockLet); // 输出: 块内let变量: 块内let变量
+}
+console.log("块外let变量:", blockLet); // 输出: 块外let变量: 块外let变量
+
+// const声明（常量）
+const PI = 3.14159;
+console.log("常量PI:", PI); // 输出: 常量PI: 3.14159
+// PI = 3.14; // 报错：常量不能重新赋值// 原始类型
+console.log("undefined类型:", typeof undefined); // 输出: undefined类型: undefined
+console.log("null类型:", typeof null); // 输出: null类型: object（特殊情况）
+console.log("布尔类型:", typeof true); // 输出: 布尔类型: boolean
+console.log("数字类型:", typeof 123); // 输出: 数字类型: number
+console.log("字符串类型:", typeof "hello"); // 输出: 字符串类型: string
+
+// 引用类型
+var obj = {name: "测试对象"};
+var arr = [1, 2, 3];
+var func = function() {};
+console.log("对象类型:", typeof obj); // 输出: 对象类型: object
+console.log("数组类型:", typeof arr); // 输出: 数组类型: object
+console.log("函数类型:", typeof func); // 输出: 函数类型: function// 算术运算符
+var a = 10, b = 3;
+console.log("加法:", a + b); // 输出: 加法: 13
+console.log("除法:", a / b); // 输出: 除法: 3.3333333333333335
+console.log("取余:", a % b); // 输出: 取余: 1
+
+// 比较运算符
+console.log("等于(==):", 5 == "5"); // 输出: 等于(==): true
+console.log("严格等于(===):", 5 === "5"); // 输出: 严格等于(===): false
+
+// 逻辑运算符
+console.log("与运算:", true && false); // 输出: 与运算: false
+console.log("或运算:", true || false); // 输出: 或运算: true// if-else语句
+var score = 85;
+if (score >= 90) {
+    console.log("优秀");
+} else if (score >= 80) {
+    console.log("良好"); // 输出: 良好
+} else {
+    console.log("及格");
+}
+
+// switch语句
+var day = 3;
+switch (day) {
+    case 1:
+        console.log("星期一");
+        break;
+    case 2:
+        console.log("星期二");
+        break;
+    case 3:
+        console.log("星期三"); // 输出: 星期三
+        break;
+    default:
+        console.log("其他天");
+}// for循环
+console.log("for循环:");
+for (var i = 1; i <= 3; i++) {
+    console.log("  循环次数:", i); // 依次输出1, 2, 3
+}
+
+// for-in循环
+var person = {name: "张三", age: 20, gender: "男"};
+console.log("for-in循环:");
+for (var key in person) {
+    console.log("  " + key + ":", person[key]); // 输出所有属性
+}
+
+// while循环
+console.log("while循环:");
+var count = 0;
+while (count < 3) {
+    console.log("  计数:", count); // 依次输出0, 1, 2
+    count++;
+}// 命名函数
+function add(a, b) {
+    return a + b;
+}
+console.log("add(2, 3) =", add(2, 3)); // 输出: add(2, 3) = 5
+
+// 匿名函数
+var multiply = function(a, b) {
+    return a * b;
+};
+console.log("multiply(4, 5) =", multiply(4, 5)); // 输出: multiply(4, 5) = 20
+
+// 自执行函数
+(function() {
+    console.log("自执行函数被调用了"); // 输出: 自执行函数被调用了
+})();// 对象字面量
+var car = {
+    brand: "特斯拉",
+    price: 300000,
+    run: function() {
+        console.log(this.brand + "正在行驶");
+    }
+};
+console.log("汽车品牌:", car.brand); // 输出: 汽车品牌: 特斯拉
+console.log("汽车价格:", car["price"]); // 输出: 汽车价格: 300000
+car.run(); // 输出: 特斯拉正在行驶
+
+
+car.showType = function() {
+    return typeof this;
+};
+console.log("car的类型:", car.showType()); // 输出: car的类型: objectvar fruits = ["苹果", "香蕉", "橙子"];
+console.log("数组长度:", fruits.length); // 输出: 数组长度: 3
+
+// 添加元素
+fruits.push("葡萄");
+console.log("添加后数组:", fruits); // 输出: 添加后数组: 苹果,香蕉,橙子,葡萄
+
+// 遍历数组
+console.log("数组元素:");
+fruits.forEach(function(fruit, index) {
+    console.log("  索引" + index + ":", fruit); // 输出所有元素
+});
+
+// 数组方法
+var numbers = [3, 1, 4, 1, 5];
+numbers.sort();
+console.log("排序后数组:", numbers); // 输出: 排序后数组: 1,1,3,4,5var str = "Hello, Rhino!";
+console.log("字符串长度:", str.length); // 输出: 字符串长度: 12
+console.log("子串位置:", str.indexOf("Rhino")); // 输出: 子串位置: 7
+console.log("截取子串:", str.substring(0, 5)); // 输出: 截取子串: Hello
+console.log("分割字符串:", str.split(",")); // 输出: 分割字符串: Hello, Rhino!
+console.log("小写转换:", str.toLowerCase()); // 输出: 小写转换: hello, rhino!var text = "Rhino 1.8.0 is a JavaScript engine";
+var pattern = /Rhino/;
+console.log("是否匹配:", pattern.test(text)); // 输出: 是否匹配: true
+
+var versionPattern = /\d+\.\d+\.\d+/;
+console.log("版本号:", text.match(versionPattern)); // 输出: 版本号: 1.8.0
+
+var globalPattern = /s/g;
+console.log("全局匹配:", text.match(globalPattern)); // 输出: 全局匹配: s,stry {
+    console.log("尝试执行代码");
+    var result = 10 / 0; // 不会抛出异常，但会得到Infinity
+    console.log("除法结果:", result); // 输出: 除法结果: Infinity
+
+    // 主动抛出异常
+    throw new Error("这是一个自定义错误");
+} catch (e) {
+    console.log("捕获到异常:", e.message); // 输出: 捕获到异常: 这是一个自定义错误
+} finally {
+    console.log("无论是否异常，都会执行"); // 输出: 无论是否异常，都会执行
+}var user = {name: "李四", age: 30, hobbies: ["读书", "运动"]};
+// 对象转JSON
+var jsonStr = JSON.stringify(user);
+console.log("JSON字符串:", jsonStr); // 输出: {"name":"李四","age":30,"hobbies":["读书","运动"]}
+
+// JSON转对象
+var parsedUser = JSON.parse(jsonStr);
+console.log("解析后的对象:", parsedUser.name); // 输出: 解析后的对象: 李四var now = new Date();
+console.log("当前日期:", now.toLocaleString()); // 输出本地日期时间
+console.log("时间戳:", now.getTime()); // 输出毫秒级时间戳
+console.log("年份:", now.getFullYear()); // 输出当前年份
+console.log("月份:", now.getMonth() + 1); // 输出当前月份（注意月份从0开始）// 模块模式：使用立即执行函数创建独立作用域
+var Calculator = (function() {
+    // 私有方法
+    function validateNumber(n) {
+        if (typeof n !== "number" || isNaN(n)) {
+            throw new Error("无效的数字: " + n);
+        }
+    }
+
+    // 私有常量
+    var PI = 3.1415926535;
+
+    // 公共接口
+    return {
+        add: function(a, b) {
+            validateNumber(a);
+            validateNumber(b);
+            return a + b;
+        },
+        multiply: function(a, b) {
+            validateNumber(a);
+            validateNumber(b);
+            return a * b;
+        },
+        circleArea: function(radius) {
+            validateNumber(radius);
+            return PI * radius * radius;
+        }
+    };
+})();
+
+// 测试模块
+console.log("加法结果:", Calculator.add(2, 3)); // 输出: 5
+console.log("乘法结果:", Calculator.multiply(4, 5)); // 输出: 20
+console.log("圆面积(半径2):", Calculator.circleArea(2)); // 输出: 12.566370614
+
+// 尝试访问私有成员（会失败）
+console.log("尝试访问私有PI:", Calculator.PI); // 输出: undefined// 模拟异步操作
+function fetchData(url, callback) {
+    console.log("开始请求:", url);
+
+    // 使用Java线程模拟异步延迟
+    var thread = new java.lang.Thread(function() {
+        try {
+            // 模拟网络延迟（1秒）
+            java.lang.Thread.sleep(1000);
+
+            // 模拟返回数据
+            var data = {
+                url: url,
+                content: "模拟从" + url + "获取的数据",
+                timestamp: new Date().getTime()
+            };
+
+            // 执行回调函数
+            callback(null, data);
+        } catch (e) {
+            callback(e, null);
+        }
+    });
+
+    thread.start();
+}
+
+// 串行执行多个异步操作
+console.log("开始串行异步操作");
+fetchData("https://api.example.com/data1", function(err, data1) {
+    if (err) {
+        console.log("错误:", err);
+        return;
+    }
+    console.log("收到数据1:", data1.content);
+
+    fetchData("https://api.example.com/data2", function(err, data2) {
+        if (err) {
+            console.log("错误:", err);
+            return;
+        }
+        console.log("收到数据2:", data2.content);
+        console.log("所有异步操作完成");
+    });
+});
+
+// 等待异步操作完成（Rhino会等待所有线程结束）
+java.lang.Thread.sleep(2500);// 闭包实现计数器工厂
+function createCounter(initialValue) {
+    var count = initialValue; // 私有变量（闭包保存）
+
+    return {
+        increment: function(step) {
+            count += (step || 1);
+            return count;
+        },
+        decrement: function(step) {
+            count -= (step || 1);
+            return count;
+        },
+        getCount: function() {
+            return count;
+        },
+        reset: function() {
+            count = initialValue;
+        }
+    };
+}
+
+// 创建两个独立计数器
+var counter1 = createCounter(0);
+var counter2 = createCounter(100);
+
+console.log("counter1初始值:", counter1.getCount()); // 输出: 0
+console.log("counter1+3:", counter1.increment(3)); // 输出: 3
+console.log("counter1-1:", counter1.decrement()); // 输出: 2
+
+console.log("counter2初始值:", counter2.getCount()); // 输出: 100
+console.log("counter2+50:", counter2.increment(50)); // 输出: 150
+
+// 高阶函数：函数作为参数
+function processNumbers(numbers, processor) {
+    var result = [];
+    for (var i = 0; i < numbers.length; i++) {
+        result.push(processor(numbers[i]));
+    }
+    return result;
+}
+
+var numbers = [1, 2, 3, 4];
+var squared = processNumbers(numbers, function(n) {
+    return n * n;
+});
+console.log("平方处理结果:", squared); // 输出: [1, 4, 9, 16]
+
+var doubled = processNumbers(numbers, function(n) {
+    return n * 2;
+});
+console.log("加倍处理结果:", doubled); // 输出: [2, 4, 6, 8]// 1. 解析URL
+var url = "https://www.example.com:8080/path?name=test&age=20#fragment";
+var urlPattern = /^(\w+):\/\/([\w.]+):?(\d*)?([^?#]+)?\??([^#]*)?#?(.*)?$/;
+
+var matches = url.match(urlPattern);
+if (matches) {
+    console.log("URL解析结果:");
+    console.log("  协议:", matches[1]); // 输出: https
+    console.log("  域名:", matches[2]); // 输出: www.example.com
+    console.log("  端口:", matches[3] || "默认"); // 输出: 8080
+    console.log("  路径:", matches[4]); // 输出: /path
+    console.log("  查询参数:", matches[5]); // 输出: name=test&age=20
+    console.log("  锚点:", matches[6]); // 输出: fragment
+}
+
+// 2. 复杂替换（驼峰命名转下划线）
+function camelToUnderscore(str) {
+    return str.replace(/([A-Z])/g, function(match, p1, offset) {
+        return (offset > 0 ? "_" : "") + p1.toLowerCase();
+    });
+}
+
+var testStr = "userName ageInYears isActive";
+console.log("驼峰转下划线:", camelToUnderscore(testStr));
+// 输出: user_name age_in_years is_active
+
+// 3. 验证邮箱格式
+function validateEmail(email) {
+    var pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return pattern.test(email);
+}
+
+var emails = ["test@example.com", "invalid-email", "user.name+tag@domain.co"];
+emails.forEach(function(email) {
+    console.log("邮箱'" + email + "'是否有效:", validateEmail(email));
+});
+// 输出:
+// 邮箱'test@example.com'是否有效: true
+// 邮箱'invalid-email'是否有效: false
+// 邮箱'user.name+tag@domain.co'是否有效: truefunction asyncOperation() {
+    return new Promise((resolve, reject) => {
+        sleep(1000);
+        const success = true;
+        if (success) {
+            resolve('Operation successful');
+        } else {
+            reject('Operation failed');
+        }
+    });
+}
+
+asyncOperation()
+.then((result) => {
+    console.log(result);
+})
+.catch((error) => {
+    console.log(error);
+});
+function outerFunction() {
+    var outerVariable = 'I am from outer function';
+
+    function innerFunction() {
+        console.log(outerVariable);
+    }
+
+    return innerFunction;
+}
+
+var closure = outerFunction();
+closure();
+var target = {
+    name: 'John',
+    age: 30
+};
+
+var handler = {
+    get: function(target, property) {
+        console.log(`Getting property ${property}`);
+        return target[property];
+    },
+    set: function(target, property, value) {
+        console.log(`Setting property ${property} to ${value}`);
+        target[property] = value;
+        return true;
+    }
+};
+
+var proxy = new Proxy(target, handler);
+console.log(proxy.name);
+proxy.age = 31;
+// 对象操作
+var person = {
+    name: 'John',
+    age: 30
+};
+console.log(person.name);
+person.gender = 'male';
+console.log(person);
+function multiplyBy(factor) {
+    return function(number) {
+        return number * factor;
+    };
+}
+
+var double = multiplyBy(2);
+var triple = multiplyBy(3);
+
+console.log(double(5));
+console.log(triple(5));
+function fetchData(callback) {
+    sleep(1000);
+    var data = 'Some data from server';
+    callback(data);
+}
+
+fetchData(function(result) {
+    console.log(result);
+});
+function* generatorFunction() {
+    yield 1;
+    yield 2;
+    yield 3;
+}
+
+var gen = generatorFunction();
+console.log(gen.next().value);
+console.log(gen.next().value);
+console.log(gen.next().value);
+// 构造函数
+function Animal(name) {
+    this.name = name;
+}
+
+// 原型方法
+Animal.prototype.speak = function() {
+    console.log(this.name + ' makes a noise.');
+};
+
+// 子类构造函数
+function Dog(name) {
+    Animal.call(this, name);
+}
+
+// 继承原型
+Dog.prototype = Object.create(Animal.prototype);
+Dog.prototype.constructor = Dog;
+
+// 重写方法
+Dog.prototype.speak = function() {
+    console.log(this.name + ' barks.');
+};
+
+var dog = new Dog('Buddy');
+dog.speak();
+// 检查字符串是否包含邮箱格式的文本
+const strWithEmail = "Contact me at test@example.com";
+const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/;
+const hasEmail = emailRegex.test(strWithEmail);
+console.log(`字符串是否包含邮箱: ${hasEmail}`);
+
+// 提取字符串里的所有数字
+const strWithNumbers = "There are 12 apples and 3 bananas";
+const numberRegex = /\d+/g;
+const numbers = strWithNumbers.match(numberRegex);
+console.log("提取到的数字: "+ numbers);
+// 示例1：基本类型检查
+function Animal(name) {
+    this.name = name;
+}
+
+// 创建Animal实例
+var dog = new Animal("小狗");
+var cat = new Animal("小猫");
+var notAnimal = {name: "不是动物"};
+
+print(dog instanceof Animal);  // 输出 true（dog是Animal的实例）
+print(cat instanceof Animal);  // 输出 true（cat是Animal的实例）
+print(notAnimal instanceof Animal);  // 输出 false（不是通过Animal构造的）
+
+
+// 示例2：继承关系中的类型检查
+function Mammal(name) {
+    Animal.call(this, name);
+}
+// 实现继承
+Mammal.prototype = Object.create(Animal.prototype);
+Mammal.prototype.constructor = Mammal;
+
+function Bird(name) {
+    Animal.call(this, name);
+}
+Bird.prototype = Object.create(Animal.prototype);
+Bird.prototype.constructor = Bird;
+
+var lion = new Mammal("狮子");
+
+print(lion instanceof Mammal);  // 输出 true（直接实例）
+print(lion instanceof Animal);  // 输出 true（继承自Animal）
+print(lion instanceof Bird);    // 输出 false（不属于Bird分支）
+
+
+// 示例3：原生对象类型检查
+var arr = [1, 2, 3];
+var date = new Date();
+var func = function() {};
+var strObj = new String("hello");
+var strPrim = "hello";  // 字符串字面量（基本类型）
+
+print(arr instanceof Array);    // 输出 true
+print(date instanceof Date);    // 输出 true
+print(func instanceof Function); // 输出 true
+print(strObj instanceof String); // 输出 true（对象类型）
+print(strPrim instanceof String); // 输出 false（基本类型不是实例）
+
+
+// 示例4：特殊情况处理
+var nullVal = null;
+var undefVal = undefined;
+
+print(nullVal instanceof Object);  // 输出 false（null不是任何对象的实例）
+print(undefVal instanceof Object); // 输出 false（undefined不是任何对象的实例）
